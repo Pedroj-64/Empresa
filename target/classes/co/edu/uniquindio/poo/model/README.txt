@@ -1,0 +1,1 @@
+En esta carpeta se guarda la logica de todo es el programa basa o conocido como backend
