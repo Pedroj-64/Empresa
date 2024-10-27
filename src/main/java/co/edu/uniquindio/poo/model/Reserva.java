@@ -11,8 +11,7 @@ public class Reserva {
     private Vehiculo vehiculo;
     private Cliente cliente;
 
-    public Reserva(double costoTotal, int dias, Cliente cliente,Vehiculo vehiculo) {
-        this.costoTotal = costoTotal;
+    public Reserva(int dias, Cliente cliente,Vehiculo vehiculo) {
         this.dias = dias;
         this.cliente = cliente;
         this.vehiculo=vehiculo;

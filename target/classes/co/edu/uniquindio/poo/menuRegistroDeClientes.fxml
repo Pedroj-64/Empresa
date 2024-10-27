@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="Screen_05" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lbl_TituloRegistroCliente" layoutX="206.0" layoutY="26.0" text="Registra Un Cliente">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_nombre" layoutX="50.0" layoutY="129.0" />
+      <Label fx:id="lbl_nombre" layoutX="56.0" layoutY="94.0" text="Nombre:">
+         <font>
+            <Font name="Serif Regular" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_cedula" layoutX="324.0" layoutY="94.0" text="Cedula:">
+         <font>
+            <Font name="Serif Regular" size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_cedula" layoutX="324.0" layoutY="129.0" />
+      <Label fx:id="lbl_apellido" layoutX="50.0" layoutY="161.0" text="Apellido:">
+         <font>
+            <Font name="Serif Regular" size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_apellido" layoutX="50.0" layoutY="187.0" />
+      <Label fx:id="lbl_edad" layoutX="324.0" layoutY="161.0" text="Edad:">
+         <font>
+            <Font name="Serif Regular" size="22.0" />
+         </font>
+      </Label>
+      <Accordion layoutX="50.0" layoutY="251.0" />
+      <Label fx:id="lbl_TituloRegistroVehicular1" layoutX="46.0" layoutY="251.0">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_marca2311" layoutX="252.0" layoutY="322.0">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_edad" layoutX="324.0" layoutY="187.0" />
+      <Button layoutX="218.0" layoutY="255.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="137.0" text="Guardar" />
+   </children>
+</AnchorPane>
