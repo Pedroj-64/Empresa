@@ -9,6 +9,7 @@ package co.edu.uniquindio.poo.viewController;
  import javafx.fxml.FXML;
  import javafx.scene.control.Button;
  import javafx.scene.control.Label;
+ import javafx.scene.control.TableColumn;
  import javafx.scene.control.TableView;
  import javafx.scene.layout.AnchorPane;
  
@@ -41,6 +42,18 @@ package co.edu.uniquindio.poo.viewController;
      @FXML // fx:id="lbl_tituloRegistroDeReservas"
      private Label lbl_tituloRegistroDeReservas; // Value injected by FXMLLoader
  
+     @FXML // fx:id="tbc_marca"
+     private TableColumn<?, ?> tbc_marca; // Value injected by FXMLLoader
+ 
+     @FXML // fx:id="tbc_modelo"
+     private TableColumn<?, ?> tbc_modelo; // Value injected by FXMLLoader
+ 
+     @FXML // fx:id="tbc_placa"
+     private TableColumn<?, ?> tbc_placa; // Value injected by FXMLLoader
+ 
+     @FXML // fx:id="tbc_tipoDeVehiculo"
+     private TableColumn<?, ?> tbc_tipoDeVehiculo; // Value injected by FXMLLoader
+ 
      @FXML // fx:id="tbl_listaVehiculos"
      private TableView<?> tbl_listaVehiculos; // Value injected by FXMLLoader
  
@@ -53,6 +66,10 @@ package co.edu.uniquindio.poo.viewController;
          assert lbl_marca1 != null : "fx:id=\"lbl_marca1\" was not injected: check your FXML file 'menuRegistrarReservas.fxml'.";
          assert lbl_marca11 != null : "fx:id=\"lbl_marca11\" was not injected: check your FXML file 'menuRegistrarReservas.fxml'.";
          assert lbl_tituloRegistroDeReservas != null : "fx:id=\"lbl_tituloRegistroDeReservas\" was not injected: check your FXML file 'menuRegistrarReservas.fxml'.";
+         assert tbc_marca != null : "fx:id=\"tbc_marca\" was not injected: check your FXML file 'menuRegistrarReservas.fxml'.";
+         assert tbc_modelo != null : "fx:id=\"tbc_modelo\" was not injected: check your FXML file 'menuRegistrarReservas.fxml'.";
+         assert tbc_placa != null : "fx:id=\"tbc_placa\" was not injected: check your FXML file 'menuRegistrarReservas.fxml'.";
+         assert tbc_tipoDeVehiculo != null : "fx:id=\"tbc_tipoDeVehiculo\" was not injected: check your FXML file 'menuRegistrarReservas.fxml'.";
          assert tbl_listaVehiculos != null : "fx:id=\"tbl_listaVehiculos\" was not injected: check your FXML file 'menuRegistrarReservas.fxml'.";
  
      }

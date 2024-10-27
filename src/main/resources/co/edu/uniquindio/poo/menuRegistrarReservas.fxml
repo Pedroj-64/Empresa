@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="Screen_03" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lbl_tituloRegistroDeReservas" layoutX="194.0" layoutY="42.0" text="Registro De Reservas">
@@ -19,10 +18,10 @@
       </Label>
       <TableView fx:id="tbl_listaVehiculos" layoutX="46.0" layoutY="244.0" prefHeight="141.0" prefWidth="531.0">
         <columns>
-          <TableColumn prefWidth="94.66665649414062" text="Placa" />
-          <TableColumn prefWidth="118.6666259765625" text="Modelo" />
-            <TableColumn prefWidth="126.00006103515625" text="Marca" />
-            <TableColumn prefWidth="191.3333740234375" text="Tipo De Vehiculo" />
+          <TableColumn fx:id="tbc_placa" prefWidth="94.66665649414062" text="Placa" />
+          <TableColumn fx:id="tbc_modelo" prefWidth="118.6666259765625" text="Modelo" />
+            <TableColumn fx:id="tbc_marca" prefWidth="126.00006103515625" text="Marca" />
+            <TableColumn fx:id="tbc_tipoDeVehiculo" prefWidth="191.3333740234375" text="Tipo De Vehiculo" />
         </columns>
       </TableView>
       <Button fx:id="btn_GuardarReservas" layoutX="148.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Guardar" />

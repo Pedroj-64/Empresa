@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="Screen_04" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lbl_tituloRegistroDeReservas" layoutX="172.0" layoutY="54.0" text="Ver Reservas De La Empresa">
@@ -16,11 +15,11 @@
       </Label>
       <TableView fx:id="tbl_verReservas" layoutX="18.0" layoutY="105.0" prefHeight="257.0" prefWidth="563.0">
         <columns>
-          <TableColumn prefWidth="122.0" text="Fecha De Inicio" />
-          <TableColumn minWidth="9.333343505859375" prefWidth="81.33334350585938" text="Dias" />
-            <TableColumn prefWidth="120.00006103515625" text="Tipo De Vehiculo" />
-            <TableColumn prefWidth="108.66668701171875" text="Cliente" />
-            <TableColumn prefWidth="130.66668701171875" text="Total Costo" />
+          <TableColumn fx:id="tbc_fechaDeInicio" prefWidth="122.0" text="Fecha De Inicio" />
+          <TableColumn fx:id="tbc_dias" minWidth="9.333343505859375" prefWidth="81.33334350585938" text="Dias" />
+            <TableColumn fx:id="tbc_tipoDeVehiculo" prefWidth="120.00006103515625" text="Tipo De Vehiculo" />
+            <TableColumn fx:id="tbc_cliente" prefWidth="108.66668701171875" text="Cliente" />
+            <TableColumn fx:id="tbc_totalCosto" prefWidth="130.66668701171875" text="Total Costo" />
         </columns>
       </TableView>
    </children>
