@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="img_Carro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="img_Carro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="co.edu.uniquindio.poo.viewController.MenuInicioViewController">
    <children>
       <Button fx:id="btn_registrarVehiculo" layoutX="72.0" layoutY="215.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" text="Registrar Vehiculo" />
       <ImageView fx:id="img_carro" fitHeight="107.0" fitWidth="134.0" layoutX="86.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">

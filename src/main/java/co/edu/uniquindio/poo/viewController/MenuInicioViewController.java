@@ -1,69 +1,74 @@
 package co.edu.uniquindio.poo.viewController;
 
-/**
- * Sample Skeleton for 'menuInicio.fxml' Controller Class
- */
+import co.edu.uniquindio.poo.controller.MenuInicioController;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.event.ActionEvent;
 
- import java.net.URL;
- import java.util.ResourceBundle;
- import javafx.fxml.FXML;
- import javafx.scene.control.Button;
- import javafx.scene.control.Label;
- import javafx.scene.image.ImageView;
- import javafx.scene.layout.AnchorPane;
- 
- public class MenuInicioViewController {
- 
-     @FXML // ResourceBundle that was given to the FXMLLoader
-     private ResourceBundle resources;
- 
-     @FXML // URL location of the FXML file that was given to the FXMLLoader
-     private URL location;
- 
-     @FXML // fx:id="btn_registrarVehiculo"
-     private Button btn_registrarVehiculo; // Value injected by FXMLLoader
- 
-     @FXML // fx:id="img_Carro"
-     private AnchorPane img_Carro; // Value injected by FXMLLoader
- 
-     @FXML // fx:id="img_Persona"
-     private ImageView img_Persona; // Value injected by FXMLLoader
- 
-     @FXML // fx:id="img_calendario"
-     private ImageView img_calendario; // Value injected by FXMLLoader
- 
-     @FXML // fx:id="img_carro"
-     private ImageView img_carro; // Value injected by FXMLLoader
- 
-     @FXML // fx:id="img_ojo"
-     private ImageView img_ojo; // Value injected by FXMLLoader
- 
-     @FXML // fx:id="lbl_crearCliente"
-     private Button lbl_crearCliente; // Value injected by FXMLLoader
- 
-     @FXML // fx:id="lbl_realizarReserva"
-     private Button lbl_realizarReserva; // Value injected by FXMLLoader
- 
-     @FXML // fx:id="lbl_titulo"
-     private Label lbl_titulo; // Value injected by FXMLLoader
- 
-     @FXML // fx:id="lbl_verReservas"
-     private Button lbl_verReservas; // Value injected by FXMLLoader
- 
-     @FXML // This method is called by the FXMLLoader when initialization is complete
-     void initialize() {
-         assert btn_registrarVehiculo != null : "fx:id=\"btn_registrarVehiculo\" was not injected: check your FXML file 'menuInicio.fxml'.";
-         assert img_Carro != null : "fx:id=\"img_Carro\" was not injected: check your FXML file 'menuInicio.fxml'.";
-         assert img_Persona != null : "fx:id=\"img_Persona\" was not injected: check your FXML file 'menuInicio.fxml'.";
-         assert img_calendario != null : "fx:id=\"img_calendario\" was not injected: check your FXML file 'menuInicio.fxml'.";
-         assert img_carro != null : "fx:id=\"img_carro\" was not injected: check your FXML file 'menuInicio.fxml'.";
-         assert img_ojo != null : "fx:id=\"img_ojo\" was not injected: check your FXML file 'menuInicio.fxml'.";
-         assert lbl_crearCliente != null : "fx:id=\"lbl_crearCliente\" was not injected: check your FXML file 'menuInicio.fxml'.";
-         assert lbl_realizarReserva != null : "fx:id=\"lbl_realizarReserva\" was not injected: check your FXML file 'menuInicio.fxml'.";
-         assert lbl_titulo != null : "fx:id=\"lbl_titulo\" was not injected: check your FXML file 'menuInicio.fxml'.";
-         assert lbl_verReservas != null : "fx:id=\"lbl_verReservas\" was not injected: check your FXML file 'menuInicio.fxml'.";
- 
-     }
- 
- }
- 
+public class MenuInicioViewController {
+
+    // Instancia del controlador de lógica de negocio
+    private MenuInicioController menuInicioController = new MenuInicioController();
+
+    @FXML
+    private Button btn_registrarVehiculo;
+
+    @FXML
+    private AnchorPane img_Carro;
+
+    @FXML
+    private ImageView img_Persona;
+
+    @FXML
+    private ImageView img_calendario;
+
+    @FXML
+    private ImageView img_carro;
+
+    @FXML
+    private ImageView img_ojo;
+
+    @FXML
+    private Button lbl_crearCliente;
+
+    @FXML
+    private Button lbl_realizarReserva;
+
+    @FXML
+    private Label lbl_titulo;
+
+    @FXML
+    private Button lbl_verReservas;
+
+    @FXML
+    void initialize() {
+        configureButtonActions();
+    }
+
+    private void configureButtonActions() {
+        btn_registrarVehiculo.setOnAction(this::handleRegistrarVehiculo);
+        lbl_crearCliente.setOnAction(this::handleCrearCliente);
+        lbl_realizarReserva.setOnAction(this::handleRealizarReserva);
+        lbl_verReservas.setOnAction(this::handleVerReservas);
+    }
+
+    private void handleRegistrarVehiculo(ActionEvent event) {
+        // Llamamos a la lógica de negocio en el controlador
+        menuInicioController.registrarVehiculo();
+    }
+
+    private void handleCrearCliente(ActionEvent event) {
+        menuInicioController.crearCliente();
+    }
+
+    private void handleRealizarReserva(ActionEvent event) {
+        menuInicioController.realizarReserva();
+    }
+
+    private void handleVerReservas(ActionEvent event) {
+        menuInicioController.verReservas();
+    }
+}
