@@ -2,6 +2,7 @@ package co.edu.uniquindio.poo.model;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 public class Empresa {
 
@@ -13,15 +14,17 @@ public class Empresa {
     private Collection<Reserva> listaReservas;
     private static Empresa instancia;
 
-    private Empresa(String nombre){
+    // Constructor privado para Singleton
+    private Empresa(String nombre) {
         this.nombre = nombre;
-        vehiculos = new LinkedList<>();
-        vehiculosDisponibles = new LinkedList<>();
-        vehiculosOcupados = new LinkedList<>();
-        clientes = new LinkedList<>();
-        listaReservas = new LinkedList<>();
+        this.vehiculos = new LinkedList<>();
+        this.vehiculosDisponibles = new LinkedList<>();
+        this.vehiculosOcupados = new LinkedList<>();
+        this.clientes = new LinkedList<>();
+        this.listaReservas = new LinkedList<>();
     }
 
+    // Método para obtener la instancia Singleton
     public static Empresa getInstance(String nombre) {
         if (instancia == null) {
             instancia = new Empresa(nombre);
@@ -29,6 +32,7 @@ public class Empresa {
         return instancia;
     }
 
+    // Getters y Setters
     public String getNombre() {
         return nombre;
     }
@@ -61,57 +65,85 @@ public class Empresa {
         return listaReservas;
     }
 
-    public void agregarVehiculo(Vehiculo vehiculo){
+    public void setListaReservas(Collection<Reserva> listaReservas) {
+        this.listaReservas = listaReservas;
+    }
+
+    // Métodos para manejar vehículos
+    public void agregarVehiculo(Vehiculo vehiculo) throws IllegalArgumentException {
+        if (vehiculo == null || vehiculos.contains(vehiculo)) {
+            throw new IllegalArgumentException("El vehículo ya existe o es nulo.");
+        }
         vehiculos.add(vehiculo);
         vehiculosDisponibles.add(vehiculo); // Agregar a disponibles al agregar vehiculo
     }
 
-    public void eliminarVehiculo(Vehiculo vehiculo){
+    public void eliminarVehiculo(Vehiculo vehiculo) throws NoSuchElementException {
+        if (vehiculo == null || !vehiculos.contains(vehiculo)) {
+            throw new NoSuchElementException("El vehículo no existe o es nulo.");
+        }
         vehiculos.remove(vehiculo);
         vehiculosDisponibles.remove(vehiculo); // Eliminar de disponibles si existe
         vehiculosOcupados.remove(vehiculo); // Eliminar de ocupados si existe
     }
 
+    // Métodos para manejar clientes
     public boolean existeCliente(String cedula){
+        boolean banderilla=false;
         for(Cliente cliente: clientes){
             if(cliente.getCedula().equals(cedula)){
-                return true;
+                banderilla=true;
             }
         }
-        return false;
+        return banderilla;
     }
 
-    public void agregarCliente(Cliente cliente){
-        if(!existeCliente(cliente.getCedula())){
-            clientes.add(cliente);
+    public void agregarCliente(Cliente cliente) throws IllegalArgumentException {
+        if (cliente == null || existeCliente(cliente.getCedula())) {
+            throw new IllegalArgumentException("El cliente ya existe o es nulo.");
         }
+        clientes.add(cliente);
     }
 
-    public void eliminarCliente(Cliente cliente){
+    public void eliminarCliente(Cliente cliente) throws NoSuchElementException {
+        if (cliente == null || !clientes.contains(cliente)) {
+            throw new NoSuchElementException("El cliente no existe o es nulo.");
+        }
         clientes.remove(cliente);
     }
 
-    public void setListaReservas(Collection<Reserva> listaReservas) {
-        this.listaReservas = listaReservas;
-    }
-
-    public void agregarReserva(Reserva reserva){
+    // Métodos para manejar reservas
+    public void agregarReserva(Reserva reserva) throws IllegalArgumentException {
+        if (reserva == null || listaReservas.contains(reserva)) {
+            throw new IllegalArgumentException("La reserva ya existe o es nula.");
+        }
         listaReservas.add(reserva);
-        Vehiculo vehiculo = reserva.getVehiculo();
-        vehiculosDisponibles.remove(vehiculo); // Remover de disponibles
-        vehiculosOcupados.add(vehiculo); // Agregar a ocupados
+        actualizarEstadoVehiculo(reserva.getVehiculo(), true);
     }
 
-    public void eliminarReserva(Reserva reserva){
+    public boolean eliminarReserva(Reserva reserva) {
+        if (reserva == null || !listaReservas.contains(reserva)) {
+            return false;
+        }
         listaReservas.remove(reserva);
-        Vehiculo vehiculo = reserva.getVehiculo();
-        vehiculosOcupados.remove(vehiculo); // Remover de ocupados
-        vehiculosDisponibles.add(vehiculo); // Agregar a disponibles
+        actualizarEstadoVehiculo(reserva.getVehiculo(), false);
+        return true;
     }
 
     public void calcularCostoReserva(Reserva reserva) {
         double costo = reserva.getVehiculo().calcularCostoReserva(reserva.getDias());
         reserva.setCostoTotal(costo);
+    }
+
+    // Método auxiliar para actualizar el estado de un vehículo
+    private void actualizarEstadoVehiculo(Vehiculo vehiculo, boolean ocupado) {
+        if (ocupado) {
+            vehiculosDisponibles.remove(vehiculo); // Remover de disponibles
+            vehiculosOcupados.add(vehiculo); // Agregar a ocupados
+        } else {
+            vehiculosOcupados.remove(vehiculo); // Remover de ocupados
+            vehiculosDisponibles.add(vehiculo); // Agregar a disponibles
+        }
     }
 
     @Override

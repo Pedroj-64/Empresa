@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class MenuInicioViewController {
 
@@ -58,15 +60,15 @@ public class MenuInicioViewController {
     }
 
     private void adminBtnCrearCliente(ActionEvent event) {
-        cargarInterfaz("/resource/menuRegistroDeClientes.fxml", event);
+        cargarInterfaz("menuRegistroDeClientes.fxml", event);
     }
 
     private void adminBtnRealizarReserva(ActionEvent event) {
-        cargarInterfaz("/resource/menuRegistrarReservas.fxml", event);
+        cargarInterfaz("menuRegistrarReservas.fxml", event);
     }
 
     private void adminBtnVerReservas(ActionEvent event) {
-        cargarInterfaz("/resource/menuVerReservas.fxml", event);
+        cargarInterfaz("menuVerReservas.fxml", event);
     }
 
     private void cargarInterfaz(String rutaFXML, ActionEvent event) {
@@ -78,6 +80,21 @@ public class MenuInicioViewController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            mostrarAlertaError("Error al cargar la interfaz", "No se pudo cargar la interfaz: " + rutaFXML);
         }
     }
+
+    private void mostrarAlertaError(String titulo, String mensaje) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 }
+
+
+
+
+
+

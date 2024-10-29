@@ -1,45 +1,51 @@
 package co.edu.uniquindio.poo;
 
-import co.edu.uniquindio.poo.controller.ReservaController;
-import co.edu.uniquindio.poo.viewController.MenuVerReservarViewController;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class App extends Application {
 
-    private ReservaController reservaController;
+    private static Scene scene;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) {
         try {
-            // Inicializar el controlador de negocio
-            reservaController = new ReservaController();
-
-            // Cargar el archivo FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/view/menuVerReservas.fxml"));
-            Parent root = loader.load();
-
-            // Obtener el controlador de la vista desde el FXML
-            MenuVerReservarViewController viewController = loader.getController();
-            
-            // Pasar la instancia del ReservaController al ViewController
-            viewController.setReservaController(reservaController);
-            viewController.actualizarTabla(); // Llamamos para actualizar la tabla al iniciar la aplicación
-
-            // Configurar la escena y mostrarla
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("Sistema de Gestión de Reservas");
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+            scene = new Scene(loadFXML("menuRegistroVehicular"), 800, 540);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showErrorDialog("Error al cargar la interfaz", "No se pudo cargar el archivo FXML: " + e.getMessage());
         }
     }
 
+    public static void setRoot(String fxml) {
+        try {
+            scene.setRoot(loadFXML(fxml));
+        } catch (IOException e) {
+            showErrorDialog("Error al cambiar la vista", "No se pudo cargar el archivo FXML: " + e.getMessage());
+        }
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
+
+    private static void showErrorDialog(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 }
