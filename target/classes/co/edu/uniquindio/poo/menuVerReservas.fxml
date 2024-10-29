@@ -24,5 +24,6 @@
         </columns>
       </TableView>
       <Button fx:id="btn_eliminarSeleccion" layoutX="402.0" layoutY="336.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Eliminar" />
+      <Button fx:id="btn_regresarAlInicio" layoutX="72.0" layoutY="336.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Regresar" />
    </children>
 </AnchorPane>

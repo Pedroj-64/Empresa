@@ -5,8 +5,6 @@ import co.edu.uniquindio.poo.model.Reserva;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Controlador de lógica de negocio que maneja las operaciones relacionadas con reservas.

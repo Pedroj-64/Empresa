@@ -1,24 +1,18 @@
 package co.edu.uniquindio.poo.viewController;
 
+import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.controller.MenuInicioController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import java.io.IOException;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.event.ActionEvent;
 
 public class MenuInicioViewController {
 
-    MenuInicioController menuInicioController = new MenuInicioController();
+    private final MenuInicioController menuInicioController = new MenuInicioController();
 
     @FXML
     private Button btn_registrarVehiculo;
@@ -43,9 +37,7 @@ public class MenuInicioViewController {
 
     @FXML
     void initialize() {
-        menuInicioController.instancia();
         configurarBotones();
-        
     }
 
     private void configurarBotones() {
@@ -56,45 +48,29 @@ public class MenuInicioViewController {
     }
 
     private void adminBtnRegistrarVehiculo(ActionEvent event) {
-        cargarInterfaz("/resource/menuRegistroVehicular.fxml", event);
+        cambiarVista("menuRegistroVehicular", 800, 540);
     }
 
     private void adminBtnCrearCliente(ActionEvent event) {
-        cargarInterfaz("menuRegistroDeClientes.fxml", event);
+        cambiarVista("menuRegistroDeClientes", 800, 540);
     }
 
     private void adminBtnRealizarReserva(ActionEvent event) {
-        cargarInterfaz("menuRegistrarReservas.fxml", event);
+        cambiarVista("menuRegistrarReservas", 800, 540);
     }
 
     private void adminBtnVerReservas(ActionEvent event) {
-        cargarInterfaz("menuVerReservas.fxml", event);
+        cambiarVista("menuVerReservas", 800, 540);
     }
 
-    private void cargarInterfaz(String rutaFXML, ActionEvent event) {
+    private void cambiarVista(String rutaFXML, double ancho, double alto) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            mostrarAlertaError("Error al cargar la interfaz", "No se pudo cargar la interfaz: " + rutaFXML);
+            App.loadScene(rutaFXML, ancho, alto);
+        } catch (Exception e) {
+            App.showAlert("Error al cargar la interfaz", "No se pudo cargar la interfaz: " + rutaFXML, AlertType.ERROR);
         }
     }
 
-    private void mostrarAlertaError(String titulo, String mensaje) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
 }
-
-
-
-
 
 

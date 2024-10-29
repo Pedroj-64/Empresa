@@ -46,5 +46,6 @@
          </font>
       </Label>
       <ComboBox fx:id="Combox_Clientes" layoutX="51.0" layoutY="176.0" prefWidth="150.0" promptText="Cliente (existente)" />
+      <Button fx:id="btn_regresarAlInicio" layoutX="462.0" layoutY="29.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Regresar" />
    </children>
 </AnchorPane>

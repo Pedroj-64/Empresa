@@ -2,6 +2,8 @@ package co.edu.uniquindio.poo.viewController;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+
+import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.controller.MenuVerReservarController;
 import co.edu.uniquindio.poo.model.Cliente;
 import co.edu.uniquindio.poo.model.Reserva;
@@ -31,6 +33,8 @@ public class MenuVerReservarViewController {
     private AnchorPane Screen_04;
     @FXML
     private Button btn_eliminarSeleccion;
+    @FXML
+    private Button btn_regresarAlInicio;
     @FXML
     private Label lbl_tituloRegistroDeReservas;
     @FXML
@@ -89,6 +93,7 @@ public class MenuVerReservarViewController {
         } catch (Exception e) {
             mostrarAlerta("Error de Configuración", "No se pudo configurar la acción del botón: " + e.getMessage());
         }
+        btn_regresarAlInicio.setOnAction(this::accionRegresarAlInicio);
     }
 
     private void configuracionListener() {
@@ -131,5 +136,8 @@ public class MenuVerReservarViewController {
         alerta.setTitle(titulo);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
+    }
+        private void accionRegresarAlInicio(ActionEvent event) {
+        App.loadScene("menuInicio", 850, 240);
     }
 }
