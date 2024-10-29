@@ -15,7 +15,7 @@
             <Image url="@imagenes/descarga.png" />
          </image>
       </ImageView>
-      <Button fx:id="lbl_realizarReserva" layoutX="239.0" layoutY="215.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" text="Realizar Reserva" />
+      <Button fx:id="btn_realizarReserva" layoutX="239.0" layoutY="215.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" text="Realizar Reserva" />
       <Label fx:id="lbl_titulo" layoutX="172.0" layoutY="61.0" prefHeight="47.0" prefWidth="271.0" text="Gestion Vehicular Empresarial">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="24.0" />
@@ -26,7 +26,7 @@
             <Font name="Franklin Gothic Medium Cond" size="23.0" />
          </font>
       </Label>
-      <Button fx:id="lbl_verReservas" layoutX="409.0" layoutY="215.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" text="Ver Reservas" />
+      <Button fx:id="btn_verReservas" layoutX="409.0" layoutY="215.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" text="Ver Reservas" />
       <ImageView fx:id="img_calendario" fitHeight="64.0" fitWidth="71.0" layoutX="275.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imagenes/descarga%20(1).png" />
@@ -37,7 +37,7 @@
             <Image url="@imagenes/descarga%20(2).png" />
          </image>
       </ImageView>
-      <Button fx:id="lbl_crearCliente" layoutX="243.0" layoutY="340.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" text="Crear Cliente" />
+      <Button fx:id="btn_crearCliente" layoutX="243.0" layoutY="340.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" text="Crear Cliente" />
       <ImageView fx:id="img_Persona" fitHeight="64.0" fitWidth="84.0" layoutX="284.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imagenes/descarga%20(3).png" />

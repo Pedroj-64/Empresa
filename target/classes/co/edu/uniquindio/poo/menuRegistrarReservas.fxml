@@ -32,19 +32,19 @@
             <Font name="Serif Regular" size="15.0" />
          </font>
       </Label>
-      <TextField layoutX="51.0" layoutY="122.0" promptText="En entero" />
+      <TextField fx:id="txt_dias2" layoutX="51.0" layoutY="122.0" promptText="En entero" />
       <Label fx:id="lbl_marca1" layoutX="337.0" layoutY="97.0" prefHeight="17.0" prefWidth="193.0" text="Vehiculo:">
          <font>
             <Font name="Serif Regular" size="15.0" />
          </font>
       </Label>
-      <TextField editable="false" layoutX="337.0" layoutY="122.0" promptText="Tipo de vehiculo" />
-      <TextField editable="false" layoutX="337.0" layoutY="176.0" promptText="Placa" />
+      <TextField fx:id="txt_tipoVehiculo" editable="false" layoutX="337.0" layoutY="122.0" promptText="Tipo de vehiculo" />
+      <TextField fx:id="txt_matricual" editable="false" layoutX="337.0" layoutY="176.0" promptText="Placa" />
       <Label fx:id="lbl_marca11" layoutX="51.0" layoutY="158.0" prefHeight="17.0" prefWidth="193.0" text="Cliente:">
          <font>
             <Font name="Serif Regular" size="15.0" />
          </font>
       </Label>
-      <ComboBox layoutX="51.0" layoutY="176.0" prefWidth="150.0" promptText="Cliente (existente)" />
+      <ComboBox fx:id="Combox_Clientes" layoutX="51.0" layoutY="176.0" prefWidth="150.0" promptText="Cliente (existente)" />
    </children>
 </AnchorPane>

@@ -1,22 +1,48 @@
 package co.edu.uniquindio.poo.controller;
 
-import co.edu.uniquindio.poo.model.Vehicle;
-import java.util.ArrayList;
-import java.util.List;
+import co.edu.uniquindio.poo.model.Auto;
+import co.edu.uniquindio.poo.model.Camioneta;
+import co.edu.uniquindio.poo.model.Empresa;
+import co.edu.uniquindio.poo.model.Moto;
+import co.edu.uniquindio.poo.model.Vehiculo;
+
+
 
 public class MenuRegistroVehicularController {
+    Empresa empresa;
 
-    private List<Vehicle> vehicles = new ArrayList<>();
-
-    // Método para registrar un vehículo en el sistema
-    public boolean registerVehicle(String matricula, String marca, String modelo, int año, boolean esAutomatica, String tipoVehiculo) {
-        Vehicle vehicle = new Vehicle(matricula, marca, modelo, año, esAutomatica, tipoVehiculo);
-        vehicles.add(vehicle);
-        return true; // Indica que el registro fue exitoso
+    public void instancia(){
+        empresa = Empresa.getInstance("mi empresa");
+    }
+    
+    public boolean registrarVehiculo(String matricula, String marca, String modelo, int año, boolean esAutomatica,
+                                     String tipoVehiculo, double tarifaBase, Integer numeroDePuertas, int capacidadDeCarga) {
+        Vehiculo vehiculo;
+    
+        switch (tipoVehiculo) {
+            case "Auto":
+                if (numeroDePuertas == null) {
+                    throw new IllegalArgumentException("El número de puertas no puede ser nulo para un Auto.");
+                }
+                vehiculo = new Auto(matricula, marca, modelo, año, tarifaBase, numeroDePuertas);
+                break;
+            case "Moto":
+                vehiculo = new Moto(matricula, marca, modelo, año, tarifaBase, esAutomatica);
+                break;
+            case "Camioneta":
+                if (capacidadDeCarga == 0) {
+                    throw new IllegalArgumentException("La capacidad de carga no puede ser nula para una Camioneta.");
+                }
+                vehiculo = new Camioneta(matricula, marca, modelo, año, tarifaBase, capacidadDeCarga);
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de vehículo no válido: " + tipoVehiculo);
+        }
+        agregarVehiculo(vehiculo);
+        return true;
     }
 
-    // Método para obtener la lista de vehículos registrados
-    public List<Vehicle> getVehicles() {
-        return vehicles;
+    public void agregarVehiculo(Vehiculo vehiculo){
+        empresa.agregarVehiculo(vehiculo);
     }
 }

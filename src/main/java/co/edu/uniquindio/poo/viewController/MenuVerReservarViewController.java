@@ -8,6 +8,9 @@ package co.edu.uniquindio.poo.viewController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import co.edu.uniquindio.poo.model.Cliente;
+import co.edu.uniquindio.poo.model.Reserva;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -32,19 +35,19 @@ public class MenuVerReservarViewController {
     private Label lbl_tituloRegistroDeReservas;
 
     @FXML // Columna de la tabla para mostrar el cliente asociado a la reserva
-    private TableColumn<?, ?> tbc_cliente;
+    private TableColumn<Reserva, Cliente> tbc_cliente;
 
     @FXML // Columna de la tabla para mostrar los días de la reserva
-    private TableColumn<?, ?> tbc_dias;
+    private TableColumn<Reserva, ?> tbc_dias;
 
     @FXML // Columna de la tabla para mostrar la fecha de inicio de la reserva
-    private TableColumn<?, ?> tbc_fechaDeInicio;
+    private TableColumn<Reserva, ?> tbc_fechaDeInicio;
 
     @FXML // Columna de la tabla para mostrar el tipo de vehículo de la reserva
-    private TableColumn<?, ?> tbc_tipoDeVehiculo;
+    private TableColumn<Reserva, ?> tbc_tipoDeVehiculo;
 
     @FXML // Columna de la tabla para mostrar el costo total de la reserva
-    private TableColumn<?, ?> tbc_totalCosto;
+    private TableColumn<Reserva, ?> tbc_totalCosto;
 
     @FXML // Tabla principal donde se muestra el listado de reservas
     private TableView<?> tbl_verReservas;

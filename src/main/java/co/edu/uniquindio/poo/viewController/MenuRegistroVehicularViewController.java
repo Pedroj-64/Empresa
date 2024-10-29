@@ -3,75 +3,93 @@ package co.edu.uniquindio.poo.viewController;
 import co.edu.uniquindio.poo.controller.MenuRegistroVehicularController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Alert.AlertType;
 
 public class MenuRegistroVehicularViewController {
 
-    // Instancia del controlador de negocio
-    private MenuRegistroVehicularController vehicleController = new MenuRegistroVehicularController();
+    private MenuRegistroVehicularController controladorVehicular = new MenuRegistroVehicularController();
 
     @FXML
-    private ComboBox<String> Cmbox_tiposDeVehiculo;
+    private ComboBox<String> cmbTiposDeVehiculo;
     @FXML
-    private DatePicker Date_añoVehiculo;
+    private DatePicker fechaAñoVehiculo;
     @FXML
-    private AnchorPane Screen_02;
+    private AnchorPane pantallaRegistro;
     @FXML
-    private CheckBox check_esCajaAutomatica;
+    private Button btn_guardarVehiculo;
     @FXML
-    private Label lbl_Año;
+    private CheckBox checkEsCajaAutomatica;
     @FXML
-    private Label lbl_TituloRegistroVehicular;
+    private Label lblAño, lblTituloRegistroVehicular, lblAclaracionEnEntero, lblAclaracionEnEntero2,
+                  lblCapacidadDeCarga, lblDatosAdicionales, lblMarca, lblMatricula, lblModelo, 
+                  lblNumeroDePuertas, lblTarifaBase, lblTipoDeVehiculo;
     @FXML
-    private TextField txt_capacidadDeCarga;
-    @FXML
-    private TextField txt_marca;
-    @FXML
-    private TextField txt_matricula;
-    @FXML
-    private TextField txt_modelo;
-    @FXML
-    private TextField txt_numeroDePuertas;
+    private TextField txtCapacidadDeCarga, txtMarca, txtMatricula, txtModelo, txtNumeroDePuertas, txtTarifaBase;
 
-    // Método que inicializa la interfaz
     @FXML
     void initialize() {
-        // Rellena el ComboBox con opciones de tipos de vehículo
-        Cmbox_tiposDeVehiculo.getItems().addAll("Auto", "Moto", "Camioneta");
+        controladorVehicular.instancia();
+        cmbTiposDeVehiculo.getItems().addAll("Auto", "Moto", "Camioneta");
+        // Listener para habilitar los campos específicos según el tipo seleccionado
+        cmbTiposDeVehiculo.valueProperty().addListener((obs, oldVal, newVal) -> habilitarCamposEspecificos(newVal));
     }
 
-    // Método que maneja el evento de registrar un vehículo
-    @FXML
-    private void onRegisterVehicle() {
-        String matricula = txt_matricula.getText();
-        String marca = txt_marca.getText();
-        String modelo = txt_modelo.getText();
-        int año = Date_añoVehiculo.getValue().getYear();
-        boolean esAutomatica = check_esCajaAutomatica.isSelected();
-        String tipoVehiculo = Cmbox_tiposDeVehiculo.getValue();
+    // Método para habilitar/deshabilitar campos específicos
+    private void habilitarCamposEspecificos(String tipoVehiculo) {
+        // Deshabilitar todos los campos específicos al cambiar de opción
+        checkEsCajaAutomatica.setDisable(true);
+        txtNumeroDePuertas.setDisable(true);
+        txtCapacidadDeCarga.setDisable(true);
 
-        // Llamada al método registerVehicle en el controlador de negocio
-        boolean isRegistered = vehicleController.registerVehicle(matricula, marca, modelo, año, esAutomatica, tipoVehiculo);
-
-        // Muestra una alerta si el registro es exitoso
-        if (isRegistered) {
-            showAlert("Registro Exitoso", "El vehículo ha sido registrado exitosamente.");
-        } else {
-            showAlert("Error de Registro", "No se pudo registrar el vehículo.");
+        if ("Moto".equals(tipoVehiculo)) {
+            checkEsCajaAutomatica.setDisable(false); // Habilitar solo para motos
+        } else if ("Auto".equals(tipoVehiculo)) {
+            txtNumeroDePuertas.setDisable(false); // Habilitar solo para autos
+        } else if ("Camioneta".equals(tipoVehiculo)) {
+            txtCapacidadDeCarga.setDisable(false); // Habilitar solo para camionetas
         }
     }
 
-    // Método auxiliar para mostrar una alerta
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
+    @FXML
+    private void registrarVehiculo() {
+        try {
+            String matricula = txtMatricula.getText();
+            String marca = txtMarca.getText();
+            String modelo = txtModelo.getText();
+            int año = fechaAñoVehiculo.getValue().getYear();
+            boolean esAutomatica = checkEsCajaAutomatica.isSelected();
+            double tarifaBase = Double.parseDouble(txtTarifaBase.getText());
+            Integer numeroDePuertas = txtNumeroDePuertas.isDisabled() ? null : Integer.parseInt(txtNumeroDePuertas.getText());
+            Integer capacidadDeCarga = txtCapacidadDeCarga.isDisabled() ? null : Integer.parseInt(txtCapacidadDeCarga.getText());
+    
+            // Obtener el tipo de vehículo directamente del ComboBox
+            String tipoVehiculo = cmbTiposDeVehiculo.getValue();
+    
+            boolean registroExitoso = controladorVehicular.registrarVehiculo(matricula, marca, modelo, año, esAutomatica, tipoVehiculo, tarifaBase, numeroDePuertas, capacidadDeCarga);
+    
+            if (registroExitoso) {
+                mostrarAlerta("Registro Exitoso", "El vehículo ha sido registrado exitosamente.");
+            } else {
+                mostrarAlerta("Error de Registro", "No se pudo registrar el vehículo. Verifique los datos ingresados.");
+            }
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error de Entrada", "Por favor, ingrese un valor numérico válido para la tarifa base, capacidad de carga o número de puertas.");
+        } catch (Exception e) {
+            mostrarAlerta("Error Inesperado", "Ocurrió un error inesperado: " + e.getMessage());
+        }
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alerta = new Alert(AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 }

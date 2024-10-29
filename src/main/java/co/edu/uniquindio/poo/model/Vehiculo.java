@@ -3,7 +3,7 @@ package co.edu.uniquindio.poo.model;
 public abstract class Vehiculo {
     private String  matricula, marca, modelo;
     private int añoFabricacion;
-    private double tarifaBase;
+    protected double tarifaBase;
 
     public Vehiculo(String matricula, String marca, String modelo, int añoFabricacion, double tarifaBase){
         this.matricula=matricula;
@@ -52,6 +52,8 @@ public abstract class Vehiculo {
     public void setTarifaBase(double tarifaBase) {
         this.tarifaBase = tarifaBase;
     }
+    public abstract double calcularCostoReserva(int dias);
+
 
     @Override
     public String toString() {

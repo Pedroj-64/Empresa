@@ -17,6 +17,12 @@ public class Auto extends Vehiculo {
         this.numeroPuertas = numeroPuertas;
     }
 
+    @Override
+    public double calcularCostoReserva(int dias) {
+        return tarifaBase * dias; // Costo = tarifa base * número de días
+    }
+    
+    
 
     @Override
     public String toString() {

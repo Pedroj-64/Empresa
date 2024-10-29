@@ -1,14 +1,20 @@
 package co.edu.uniquindio.poo.controller;
 
 import co.edu.uniquindio.poo.model.Cliente;
+import co.edu.uniquindio.poo.model.Empresa;
 
 public class MenuRegistroDeClientesController {
+
+    Empresa empresa;
+
+    public void instancia(){
+        Empresa.getInstance("mi empresa");
+    }
 
     // Método para registrar un cliente
     public boolean registrarCliente(String nombre, String apellido, String cedula, int edad) {
         if (validarDatos(nombre, apellido, cedula, edad)) {
             Cliente cliente = new Cliente(nombre, apellido, cedula, edad);
-            // TODO: Agregar lógica para guardar el cliente (ej. en una base de datos o lista)
             System.out.println("Cliente registrado: " + cliente);
             return true;
         } else {
@@ -16,6 +22,7 @@ public class MenuRegistroDeClientesController {
             return false;
         }
     }
+
 
     // Método para validar los datos ingresados
     private boolean validarDatos(String nombre, String apellido, String cedula, int edad) {

@@ -2,73 +2,82 @@ package co.edu.uniquindio.poo.viewController;
 
 import co.edu.uniquindio.poo.controller.MenuInicioController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.event.ActionEvent;
+import java.io.IOException;
 
 public class MenuInicioViewController {
 
-    // Instancia del controlador de lógica de negocio
-    private MenuInicioController menuInicioController = new MenuInicioController();
+    MenuInicioController menuInicioController = new MenuInicioController();
 
     @FXML
     private Button btn_registrarVehiculo;
-
     @FXML
     private AnchorPane img_Carro;
-
     @FXML
     private ImageView img_Persona;
-
     @FXML
     private ImageView img_calendario;
-
     @FXML
     private ImageView img_carro;
-
     @FXML
     private ImageView img_ojo;
-
     @FXML
-    private Button lbl_crearCliente;
-
+    private Button btn_crearCliente;
     @FXML
-    private Button lbl_realizarReserva;
-
+    private Button btn_realizarReserva;
     @FXML
     private Label lbl_titulo;
-
     @FXML
-    private Button lbl_verReservas;
+    private Button btn_verReservas;
 
     @FXML
     void initialize() {
-        configureButtonActions();
+        menuInicioController.instancia();
+        configurarBotones();
+        
     }
 
-    private void configureButtonActions() {
-        btn_registrarVehiculo.setOnAction(this::handleRegistrarVehiculo);
-        lbl_crearCliente.setOnAction(this::handleCrearCliente);
-        lbl_realizarReserva.setOnAction(this::handleRealizarReserva);
-        lbl_verReservas.setOnAction(this::handleVerReservas);
+    private void configurarBotones() {
+        btn_registrarVehiculo.setOnAction(this::adminBtnRegistrarVehiculo);
+        btn_crearCliente.setOnAction(this::adminBtnCrearCliente);
+        btn_realizarReserva.setOnAction(this::adminBtnRealizarReserva);
+        btn_verReservas.setOnAction(this::adminBtnVerReservas);
     }
 
-    private void handleRegistrarVehiculo(ActionEvent event) {
-        // Llamamos a la lógica de negocio en el controlador
-        menuInicioController.registrarVehiculo();
+    private void adminBtnRegistrarVehiculo(ActionEvent event) {
+        cargarInterfaz("/resource/menuRegistroVehicular.fxml", event);
     }
 
-    private void handleCrearCliente(ActionEvent event) {
-        menuInicioController.crearCliente();
+    private void adminBtnCrearCliente(ActionEvent event) {
+        cargarInterfaz("/resource/menuRegistroDeClientes.fxml", event);
     }
 
-    private void handleRealizarReserva(ActionEvent event) {
-        menuInicioController.realizarReserva();
+    private void adminBtnRealizarReserva(ActionEvent event) {
+        cargarInterfaz("/resource/menuRegistrarReservas.fxml", event);
     }
 
-    private void handleVerReservas(ActionEvent event) {
-        menuInicioController.verReservas();
+    private void adminBtnVerReservas(ActionEvent event) {
+        cargarInterfaz("/resource/menuVerReservas.fxml", event);
+    }
+
+    private void cargarInterfaz(String rutaFXML, ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

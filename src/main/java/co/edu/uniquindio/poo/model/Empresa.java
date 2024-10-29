@@ -6,16 +6,27 @@ import java.util.LinkedList;
 public class Empresa {
 
     private String nombre;
-    private Collection<Vehiculo>  vehiculos;
+    private Collection<Vehiculo> vehiculos;
+    private Collection<Vehiculo> vehiculosDisponibles;
+    private Collection<Vehiculo> vehiculosOcupados;
     private Collection<Cliente> clientes;
     private Collection<Reserva> listaReservas;
+    private static Empresa instancia;
 
+    private Empresa(String nombre){
+        this.nombre = nombre;
+        vehiculos = new LinkedList<>();
+        vehiculosDisponibles = new LinkedList<>();
+        vehiculosOcupados = new LinkedList<>();
+        clientes = new LinkedList<>();
+        listaReservas = new LinkedList<>();
+    }
 
-    public Empresa(String nombre){
-        this.nombre=nombre;
-        vehiculos=new LinkedList<>();
-        clientes=new LinkedList<>();
-        listaReservas=new LinkedList<>();
+    public static Empresa getInstance(String nombre) {
+        if (instancia == null) {
+            instancia = new Empresa(nombre);
+        }
+        return instancia;
     }
 
     public String getNombre() {
@@ -30,8 +41,12 @@ public class Empresa {
         return vehiculos;
     }
 
-    public void setVehiculos(Collection<Vehiculo> vehiculos) {
-        this.vehiculos = vehiculos;
+    public Collection<Vehiculo> getVehiculosDisponibles() {
+        return vehiculosDisponibles;
+    }
+
+    public Collection<Vehiculo> getVehiculosOcupados() {
+        return vehiculosOcupados;
     }
 
     public Collection<Cliente> getClientes() {
@@ -48,22 +63,22 @@ public class Empresa {
 
     public void agregarVehiculo(Vehiculo vehiculo){
         vehiculos.add(vehiculo);
+        vehiculosDisponibles.add(vehiculo); // Agregar a disponibles al agregar vehiculo
     }
 
     public void eliminarVehiculo(Vehiculo vehiculo){
         vehiculos.remove(vehiculo);
+        vehiculosDisponibles.remove(vehiculo); // Eliminar de disponibles si existe
+        vehiculosOcupados.remove(vehiculo); // Eliminar de ocupados si existe
     }
 
     public boolean existeCliente(String cedula){
-        boolean banderilla=false;
         for(Cliente cliente: clientes){
-            if(cliente.getCedula()==cedula){
-                banderilla=true;
-                break;
+            if(cliente.getCedula().equals(cedula)){
+                return true;
             }
         }
-        return banderilla;
-
+        return false;
     }
 
     public void agregarCliente(Cliente cliente){
@@ -82,44 +97,25 @@ public class Empresa {
 
     public void agregarReserva(Reserva reserva){
         listaReservas.add(reserva);
-    }
-    public void eliminarReserva(Reserva reserva){
-        listaReservas.remove(reserva);
+        Vehiculo vehiculo = reserva.getVehiculo();
+        vehiculosDisponibles.remove(vehiculo); // Remover de disponibles
+        vehiculosOcupados.add(vehiculo); // Agregar a ocupados
     }
 
-    
+    public void eliminarReserva(Reserva reserva){
+        listaReservas.remove(reserva);
+        Vehiculo vehiculo = reserva.getVehiculo();
+        vehiculosOcupados.remove(vehiculo); // Remover de ocupados
+        vehiculosDisponibles.add(vehiculo); // Agregar a disponibles
+    }
+
     public void calcularCostoReserva(Reserva reserva) {
-        double costo=0;
-        Vehiculo vehiculo=reserva.getVehiculo();
-        if(vehiculo instanceof Auto){
-            Auto auto=((Auto)vehiculo);
-            int dias=reserva.getDias();
-            costo=vehiculo.getTarifaBase()*dias;
-            reserva.setCostoTotal(costo);
-        }else if(vehiculo instanceof Moto){
-            Moto moto=((Moto)vehiculo);
-            if(moto.isEsCajaAutomatica()==true){
-                double adicional=0.21*moto.getTarifaBase();
-                costo=moto.getTarifaBase() +  adicional;
-            }
-            reserva.setCostoTotal(costo);
-        }else if(vehiculo  instanceof Camioneta){
-            int incremento=0;
-            Camioneta camioneta=((Camioneta)vehiculo);
-            double capacidad=camioneta.getCargaToneladas();
-            for(int i=0;i<capacidad;i++){
-                incremento +=i;
-            }
-            double porcentajeIncremento=incremento/100;
-            costo=camioneta.getTarifaBase()*porcentajeIncremento;
-            reserva.setCostoTotal(costo+vehiculo.getTarifaBase());
-        }
+        double costo = reserva.getVehiculo().calcularCostoReserva(reserva.getDias());
+        reserva.setCostoTotal(costo);
     }
 
     @Override
     public String toString() {
         return "Empresa [nombre=" + nombre + "]";
     }
-    
-    
 }

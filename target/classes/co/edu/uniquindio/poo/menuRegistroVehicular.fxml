@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -11,7 +12,7 @@
 
 <AnchorPane fx:id="Screen_02" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.viewController.MenuRegistroVehicularViewController">
    <children>
-      <Label fx:id="lbl_TituloRegistroVehicular" layoutX="206.0" layoutY="26.0" text="Registra Un Vehiculo">
+      <Label fx:id="lbl_TituloRegistroVehicular" layoutX="32.0" layoutY="14.0" prefHeight="55.0" prefWidth="208.0" text="Registra Un Vehiculo">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="22.0" />
          </font>
@@ -41,24 +42,19 @@
       </Label>
       <DatePicker fx:id="Date_añoVehiculo" layoutX="324.0" layoutY="187.0" prefHeight="25.0" prefWidth="150.0" promptText="Año del vehiculo" />
       <Accordion layoutX="50.0" layoutY="251.0" />
-      <Label fx:id="lbl_TituloRegistroVehicular1" layoutX="46.0" layoutY="251.0">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="22.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="Cmbox_tiposDeVehiculo" layoutX="50.0" layoutY="254.0" prefWidth="150.0" />
+      <ComboBox fx:id="Cmbox_tiposDeVehiculo" layoutX="50.0" layoutY="336.0" prefWidth="150.0" />
       <Label fx:id="lbl_datosAdicionales" layoutX="249.0" layoutY="225.0" text="Datos Adicionales:">
          <font>
             <Font name="Serif Regular" size="22.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_tipoDeVehiculo" layoutX="47.0" layoutY="225.0" text="Tipo de vehiculo:">
+      <Label fx:id="lbl_tipoDeVehiculo" layoutX="47.0" layoutY="300.0" text="Tipo de vehiculo:">
          <font>
             <Font name="Serif Regular" size="22.0" />
          </font>
       </Label>
       <CheckBox fx:id="check_esCajaAutomatica" layoutX="249.0" layoutY="255.0" mnemonicParsing="false" text="Es Caja Automatica" />
-      <TextField fx:id="txt_numeroDePuertas" editable="false" layoutX="432.0" layoutY="284.0" />
+      <TextField fx:id="txt_numeroDePuertas" layoutX="432.0" layoutY="284.0" />
       <Label fx:id="lbl_numeroDePuertas" layoutX="247.0" layoutY="284.0" text="Numero de puertas:">
          <font>
             <Font name="Serif Regular" size="22.0" />
@@ -69,12 +65,7 @@
             <Font name="Serif Regular" size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_capacidadDeCarga" editable="false" layoutX="432.0" layoutY="336.0" prefHeight="25.0" prefWidth="149.0" />
-      <Label fx:id="lbl_marca2311" layoutX="252.0" layoutY="322.0">
-         <font>
-            <Font name="Arial" size="14.0" />
-         </font>
-      </Label>
+      <TextField fx:id="txt_capacidadDeCarga" layoutX="432.0" layoutY="336.0" prefHeight="25.0" prefWidth="149.0" />
       <Label fx:id="lbl_aclaracionEnEntero" layoutX="249.0" layoutY="313.0" text="(En entero)">
          <font>
             <Font name="Serif Regular" size="15.0" />
@@ -85,5 +76,12 @@
             <Font name="Serif Regular" size="15.0" />
          </font>
       </Label>
+      <TextField fx:id="txt_tarifaBase" layoutX="50.0" layoutY="259.0" />
+      <Label fx:id="lbl_tarifaBase" layoutX="49.0" layoutY="225.0" prefHeight="25.0" prefWidth="123.0" text="Tarifa Base:">
+         <font>
+            <Font name="Serif Regular" size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn_guardarVehiculo" layoutX="418.0" layoutY="27.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="137.0" text="Guardar" />
    </children>
 </AnchorPane>

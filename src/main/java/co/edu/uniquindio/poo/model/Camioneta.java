@@ -16,6 +16,18 @@ public class Camioneta extends Vehiculo{
     public void setCargaToneladas(int cargaToneladas) {
         this.cargaToneladas = cargaToneladas;
     }
+    
+    @Override
+    public double calcularCostoReserva(int dias) {
+        double incremento = 0;
+        // Cálculo de incremento basado en la capacidad de carga
+        for (int i = 0; i < cargaToneladas; i++) {
+            incremento += i; // Puede variar según la lógica que definas
+        }
+        double porcentajeIncremento = incremento / 100;
+        double costo = (tarifaBase + (tarifaBase * porcentajeIncremento)) * dias; 
+        return costo;
+    }
 
     @Override
     public String toString() {

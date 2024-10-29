@@ -20,6 +20,14 @@ public class Moto extends Vehiculo {
     public void setEsCajaAutomatica(boolean esCajaAutomatica) {
         this.esCajaAutomatica = esCajaAutomatica;
     }
+    @Override
+    public double calcularCostoReserva(int dias) {
+        double costo = this.tarifaBase * dias;
+        if (esCajaAutomatica) {
+            costo += tarifaBase * 0.21; // Costo adicional
+        }
+        return costo;
+    }
 
     @Override
     public String toString() {
