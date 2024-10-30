@@ -81,6 +81,9 @@ public class Empresa {
         // Crear un vehículo (Camioneta) con datos constantes
         Camioneta camioneta = new Camioneta("ABC123", "Toyota", "Hilux", 2020, 100000, 10);
         agregarVehiculo(camioneta); // Agregar la camioneta a la empresa
+
+        Camioneta camioneta4 = new Camioneta("ABC123", "Toyota", "Hilux", 2020, 100000, 10);
+        agregarVehiculo(camioneta4);
         
         // Crear una reserva con datos constantes
         Reserva reserva = new Reserva(5, cliente, camioneta); // Reserva por 5 días

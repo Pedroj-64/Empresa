@@ -10,13 +10,19 @@ import co.edu.uniquindio.poo.model.Vehiculo;
 
 
 public class MenuRegistroVehicularController {
-
-    Empresa empresa=App.getEmpresa();
+    Empresa empresa = App.getEmpresa();
 
     public boolean registrarVehiculo(String matricula, String marca, String modelo, int año, boolean esAutomatica,
                                      String tipoVehiculo, double tarifaBase, Integer numeroDePuertas, int capacidadDeCarga) {
+        if (empresa == null) {
+            throw new IllegalStateException("La empresa no puede ser nula.");
+        }
+
+        if (matricula == null || marca == null || modelo == null || tipoVehiculo == null) {
+            throw new IllegalArgumentException("Los parámetros no pueden ser nulos.");
+        }
+
         Vehiculo vehiculo;
-    
         switch (tipoVehiculo) {
             case "Auto":
                 if (numeroDePuertas == null) {
@@ -40,9 +46,11 @@ public class MenuRegistroVehicularController {
         return true;
     }
 
-    public void agregarVehiculo(Vehiculo vehiculo){
-        empresa.agregarVehiculo(vehiculo);
+    public void agregarVehiculo(Vehiculo vehiculo) {
+        if (empresa != null) {
+            empresa.agregarVehiculo(vehiculo);
+        } else {
+            throw new IllegalStateException("La empresa no puede ser nula al agregar un vehículo.");
+        }
     }
-
-
 }

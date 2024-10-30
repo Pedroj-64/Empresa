@@ -117,6 +117,6 @@ public class MenuRegistroDeClientesViewController {
         txt_edad.clear();
     }
     private void accionRegresarAlInicio(ActionEvent event) {
-        App.loadScene("menuInicio", 850, 740);
+        App.loadScene("menuInicio", 800, 540);
     }
 }

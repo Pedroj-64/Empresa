@@ -14,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 public class MenuRegistrarReservasViewController {
-
     private final MenuRegistrarReservasController registrarReservasController = new MenuRegistrarReservasController();
 
     @FXML
@@ -29,6 +28,8 @@ public class MenuRegistrarReservasViewController {
     private TextField txt_dias;
     @FXML
     private TextField txt_placa;
+    @FXML
+    private TextField txt_tipoDeVehiculo;
     @FXML
     private ComboBox<Cliente> cmb_Clientes;
     @FXML
@@ -53,8 +54,7 @@ public class MenuRegistrarReservasViewController {
         tbc_marca.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getMarca()));
         tbc_modelo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getModelo()));
         tbc_placa.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getMatricula()));
-        tbc_tipoDeVehiculo.setCellValueFactory(
-                cellData -> new SimpleObjectProperty<>(cellData.getValue().getClass().getSimpleName()));
+        tbc_tipoDeVehiculo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClass().getSimpleName()));
     }
 
     private void cargarDatos() {
@@ -64,8 +64,7 @@ public class MenuRegistrarReservasViewController {
     }
 
     private void cargarVehiculos() {
-        ObservableList<Vehiculo> vehiculos = FXCollections
-                .observableArrayList(App.getEmpresa().getVehiculosDisponibles());
+        ObservableList<Vehiculo> vehiculos = FXCollections.observableArrayList(App.getEmpresa().getVehiculosDisponibles());
         tbl_listaVehiculos.setItems(vehiculos);
     }
 
@@ -77,6 +76,7 @@ public class MenuRegistrarReservasViewController {
     private void configurarListenerTabla() {
         tbl_listaVehiculos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+                txt_tipoDeVehiculo.setText(newValue.getClass().getSimpleName());
                 txt_placa.setText(newValue.getMatricula());
             } else {
                 limpiarCampos();
@@ -93,16 +93,23 @@ public class MenuRegistrarReservasViewController {
     private void accionGuardarReserva(ActionEvent event) {
         try {
             String placa = txt_placa.getText();
-            int dias = Integer.parseInt(txt_dias.getText());
+            if (placa.isEmpty()) {
+                App.showAlert("Error", "La placa no puede estar vacía.", Alert.AlertType.ERROR);
+                return;
+            }
+            int dias;
+            try {
+                dias = Integer.parseInt(txt_dias.getText());
+            } catch (NumberFormatException e) {
+                App.showAlert("Error", "Ingrese un valor numérico válido para los días.", Alert.AlertType.ERROR);
+                return;
+            }
             Cliente cliente = cmb_Clientes.getSelectionModel().getSelectedItem();
-
             if (cliente == null) {
                 App.showAlert("Error", "Seleccione un cliente.", Alert.AlertType.ERROR);
                 return;
             }
-
             Vehiculo vehiculo = registrarReservasController.buscarVehiculoPorPlaca(placa);
-
             if (vehiculo != null) {
                 Reserva reserva = new Reserva(dias, cliente, vehiculo);
                 registrarReservasController.guardarReserva(reserva);
@@ -110,10 +117,8 @@ public class MenuRegistrarReservasViewController {
                 limpiarCampos();
             } else {
                 App.showAlert("Error", "Vehículo no encontrado.", Alert.AlertType.ERROR);
+                limpiarCampos(); // Limpia los campos si el vehículo no se encuentra
             }
-
-        } catch (NumberFormatException e) {
-            App.showAlert("Error", "Ingrese un valor numérico para los días. Detalle: " + e.getMessage(), Alert.AlertType.ERROR);
         } catch (Exception e) {
             App.showAlert("Error inesperado", "Ha ocurrido un error inesperado. Detalle: " + e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace(); // Para más detalles en la consola
@@ -127,6 +132,10 @@ public class MenuRegistrarReservasViewController {
     }
 
     private void accionRegresarAlInicio(ActionEvent event) {
-        App.loadScene("menuInicio", 850, 740);
+        try {
+            App.loadScene("menuInicio", 800, 540);
+        } catch (Exception e) {
+            App.showAlert("Error al Cargar Escena", "Ocurrió un error al regresar al menú de inicio.", Alert.AlertType.ERROR);
+        }
     }
 }

@@ -2,7 +2,7 @@ package co.edu.uniquindio.poo.model;
 
 public class Camioneta extends Vehiculo{
 
-    private int cargaToneladas;
+    private int cargaToneladas=0;
 
     public Camioneta(String matricula, String marca, String modelo, int añoFabricacion, double tarifaBase,int cargaToneladas){
         super(matricula, marca, modelo, añoFabricacion,tarifaBase);

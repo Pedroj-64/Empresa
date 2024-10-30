@@ -86,7 +86,7 @@ public class MenuRegistroVehicularViewController {
 
     private void accionRegresarAlInicio(ActionEvent event) {
         try {
-            App.loadScene("menuInicio", 850, 740);
+            App.loadScene("menuInicio", 800, 540);
         } catch (Exception e) {
             App.showAlert("Error al Cargar Escena", "Ocurrió un error al regresar al menú de inicio.", Alert.AlertType.ERROR);
         }
@@ -120,10 +120,14 @@ public class MenuRegistroVehicularViewController {
     }
 
     private Integer obtenerValorCampo(TextField campo) {
+        int valor=0;
         if (campo.isDisabled() || campo.getText().isEmpty()) {
-            return null;
+            valor= 0;
         }
-        return Integer.parseInt(campo.getText());
+        else{
+            valor=Integer.parseInt(campo.getText());
+        }
+        return valor;
     }
 
     private boolean esCampoVacio(TextField campo) {

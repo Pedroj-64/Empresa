@@ -24,7 +24,7 @@ public class App extends Application {
             empresa.crearReservaEjemplo();
 
             // Carga la escena inicial
-            scene = new Scene(loadFXML("menuRegistroVehicular"), 800, 540);
+            scene = new Scene(loadFXML("menuRegistrarReservas"), 800, 540);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
