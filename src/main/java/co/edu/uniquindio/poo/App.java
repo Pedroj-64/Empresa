@@ -23,7 +23,7 @@ public class App extends Application {
             empresa = Empresa.getInstance("mi empresa");
 
             // Carga la escena inicial
-            scene = new Scene(loadFXML("MenuRegistroDeClientes"), 800, 540);
+            scene = new Scene(loadFXML("menuInicio"), 800, 540);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -61,6 +61,8 @@ public class App extends Application {
     public static Empresa getEmpresa() {
         return empresa;
     }
+
+
 
     public static void main(String[] args) {
         launch();

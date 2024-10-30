@@ -138,6 +138,6 @@ public class MenuVerReservarViewController {
         alerta.showAndWait();
     }
         private void accionRegresarAlInicio(ActionEvent event) {
-        App.loadScene("menuInicio", 850, 240);
+        App.loadScene("menuInicio", 850, 740);
     }
 }

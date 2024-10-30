@@ -46,8 +46,10 @@ public class MenuRegistrarReservasViewController {
     @FXML
     void initialize() {
         configurarTabla();
-        cargarDatos();
+
         configurarAccionesBotones();
+
+        
     }
 
     private void configurarTabla() {

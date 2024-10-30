@@ -27,20 +27,20 @@
       <Button fx:id="btn_GuardarReservas" layoutX="148.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Guardar" />
       <Button fx:id="btn_limpiarReservas" layoutX="344.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Limpiar" />
       <Label layoutX="58.0" layoutY="97.0" />
-      <Label fx:id="lbl_marca" layoutX="51.0" layoutY="97.0" prefHeight="17.0" prefWidth="193.0" text="Dias De duracion de la reserva:">
+      <Label fx:id="lbl_DiasReserva" layoutX="51.0" layoutY="97.0" prefHeight="17.0" prefWidth="193.0" text="Dias De duracion de la reserva:">
          <font>
             <Font name="Serif Regular" size="15.0" />
          </font>
       </Label>
       <TextField fx:id="txt_dias2" layoutX="51.0" layoutY="122.0" promptText="En entero" />
-      <Label fx:id="lbl_marca1" layoutX="337.0" layoutY="97.0" prefHeight="17.0" prefWidth="193.0" text="Vehiculo:">
+      <Label fx:id="lbl_Vehiculo" layoutX="337.0" layoutY="97.0" prefHeight="17.0" prefWidth="193.0" text="Vehiculo:">
          <font>
             <Font name="Serif Regular" size="15.0" />
          </font>
       </Label>
       <TextField fx:id="txt_tipoVehiculo" editable="false" layoutX="337.0" layoutY="122.0" promptText="Tipo de vehiculo" />
       <TextField fx:id="txt_matricual" editable="false" layoutX="337.0" layoutY="176.0" promptText="Placa" />
-      <Label fx:id="lbl_marca11" layoutX="51.0" layoutY="158.0" prefHeight="17.0" prefWidth="193.0" text="Cliente:">
+      <Label fx:id="lbl_Cliente" layoutX="51.0" layoutY="158.0" prefHeight="17.0" prefWidth="193.0" text="Cliente:">
          <font>
             <Font name="Serif Regular" size="15.0" />
          </font>

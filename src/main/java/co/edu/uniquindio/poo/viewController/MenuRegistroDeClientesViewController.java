@@ -57,6 +57,7 @@ public class MenuRegistroDeClientesViewController {
     @FXML
     void initialize() {
         configureButtonActions();
+        registroDeClientesController.instancia();
     }
 
     // Configuración de las acciones de los botones

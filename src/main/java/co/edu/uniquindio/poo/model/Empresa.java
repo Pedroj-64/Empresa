@@ -69,6 +69,24 @@ public class Empresa {
         this.listaReservas = listaReservas;
     }
 
+    public boolean tieneVehiculos() {
+        return !vehiculos.isEmpty();
+    }
+
+    public void crearReservaEjemplo() {
+        // Crear un cliente con datos constantes
+        Cliente cliente = new Cliente("Juan", "Pérez", "123456789", 30);
+        agregarCliente(cliente); // Agregar el cliente a la empresa
+    
+        // Crear un vehículo (Camioneta) con datos constantes
+        Camioneta camioneta = new Camioneta("ABC123", "Toyota", "Hilux", 2020, 100000, 1);
+        agregarVehiculo(camioneta); // Agregar la camioneta a la empresa
+    
+        // Crear una reserva con datos constantes
+        Reserva reserva = new Reserva(5, cliente, camioneta); // Reserva por 5 días
+        agregarReserva(reserva); // Agregar la reserva a la empresa
+    }
+
     // Métodos para manejar vehículos
     public void agregarVehiculo(Vehiculo vehiculo) throws IllegalArgumentException {
         if (vehiculo == null || vehiculos.contains(vehiculo)) {
@@ -76,6 +94,20 @@ public class Empresa {
         }
         vehiculos.add(vehiculo);
         vehiculosDisponibles.add(vehiculo); // Agregar a disponibles al agregar vehiculo
+    }
+
+    public Vehiculo buscarVehiculoPorPlaca(String placa) throws NoSuchElementException {
+        if (placa == null || placa.isEmpty()) {
+            throw new IllegalArgumentException("La placa no puede ser nula o vacía.");
+        }
+        
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.getMatricula().equals(placa)) {
+                return vehiculo; // Retorna el vehículo encontrado
+            }
+        }
+        
+        throw new NoSuchElementException("No se encontró un vehículo con la placa: " + placa);
     }
 
     public void eliminarVehiculo(Vehiculo vehiculo) throws NoSuchElementException {
