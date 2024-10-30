@@ -12,111 +12,109 @@ import javafx.event.ActionEvent;
 
 public class MenuRegistroDeClientesViewController {
 
-    // Instancia del controlador que gestiona la lógica de negocio
     private final MenuRegistroDeClientesController registroDeClientesController = new MenuRegistroDeClientesController();
 
     @FXML
     private AnchorPane Screen_05;
 
     @FXML
-    private Button btn_guardar; // Botón para guardar el registro de cliente
-
+    private Button btn_guardar;
     @FXML
     private Button btn_regresarAlInicio;
 
     @FXML
     private Label lbl_TituloRegistroCliente;
-
     @FXML
     private Label lbl_TituloRegistroVehicular1;
-
     @FXML
     private Label lbl_apellido;
-
     @FXML
     private Label lbl_cedula;
-
     @FXML
     private Label lbl_edad;
-
     @FXML
     private Label lbl_nombre;
 
     @FXML
-    private TextField txt_apellido; // Campo de texto para el apellido del cliente
-
+    private TextField txt_apellido;
     @FXML
-    private TextField txt_cedula; // Campo de texto para la cédula del cliente
-
+    private TextField txt_cedula;
     @FXML
-    private TextField txt_edad; // Campo de texto para la edad del cliente
-
+    private TextField txt_edad;
     @FXML
-    private TextField txt_nombre; // Campo de texto para el nombre del cliente
+    private TextField txt_nombre;
 
     @FXML
     void initialize() {
-        configureButtonActions();
         registroDeClientesController.instancia();
+        configureButtonActions();
     }
 
-    // Configuración de las acciones de los botones
     private void configureButtonActions() {
         btn_guardar.setOnAction(this::handleRegistrarCliente);
         btn_regresarAlInicio.setOnAction(this::accionRegresarAlInicio);
     }
 
-    // Método para manejar el evento de registro de cliente
     @FXML
     private void handleRegistrarCliente(ActionEvent event) {
-        String nombre = txt_nombre.getText();
-        String apellido = txt_apellido.getText();
-        String cedula = txt_cedula.getText();
-        int edad;
-
-        // Validación de campos vacíos
-        if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty() || txt_edad.getText().isEmpty()) {
-            App.showAlert("Campos vacíos", "Por favor, complete todos los campos.", Alert.AlertType.ERROR);
-            return;
-        }
-
-        // Validación de la edad
         try {
-            edad = Integer.parseInt(txt_edad.getText());
-            if (edad < 0 || edad > 120) {
-                App.showAlert("Edad inválida", "Por favor, ingrese una edad válida entre 0 y 120.", Alert.AlertType.ERROR);
+            if (!validarCampos()) return;
+
+            String nombre = txt_nombre.getText();
+            String apellido = txt_apellido.getText();
+            String cedula = txt_cedula.getText();
+            int edad = validarEdad(txt_edad.getText());
+
+            if (!cedula.matches("\\d+")) {
+                App.showAlert("Cédula inválida", "La cédula debe contener solo números.", Alert.AlertType.ERROR);
                 return;
             }
+
+            boolean registrado = registroDeClientesController.registrarCliente(nombre, apellido, cedula, edad);
+
+            if (registrado) {
+                App.showAlert("Registro exitoso", "El cliente ha sido registrado con éxito.", Alert.AlertType.INFORMATION);
+                limpiarCampos();
+            } else {
+                App.showAlert("Error en el registro", "Por favor, verifique los datos ingresados.", Alert.AlertType.ERROR);
+            }
         } catch (NumberFormatException e) {
-            App.showAlert("Edad inválida", "Por favor, ingrese un número válido para la edad.", Alert.AlertType.ERROR);
-            return;
-        }
-
-        // Validación de la cédula
-        if (!cedula.matches("\\d+")) {
-            App.showAlert("Cédula inválida", "La cédula debe contener solo números.", Alert.AlertType.ERROR);
-            return;
-        }
-
-        // Llamada al controlador de lógica de negocio para registrar el cliente
-        boolean registrado = registroDeClientesController.registrarCliente(nombre, apellido, cedula, edad);
-
-        if (registrado) {
-            App.showAlert("Registro exitoso", "El cliente ha sido registrado con éxito.", Alert.AlertType.INFORMATION);
-            limpiarCampos();
-        } else {
-            App.showAlert("Error en el registro", "Por favor, verifique los datos ingresados.", Alert.AlertType.ERROR);
+            App.showAlert("Formato de edad incorrecto", "La edad debe ser un número entero.", Alert.AlertType.ERROR);
+        } catch (IllegalArgumentException e) {
+            App.showAlert("Error de Validación", e.getMessage(), Alert.AlertType.ERROR);
+        } catch (Exception e) {
+            App.showAlert("Error inesperado", "Ha ocurrido un error. Por favor intente nuevamente.", Alert.AlertType.ERROR);
         }
     }
 
-    // Método para limpiar los campos de texto después de registrar
+    private boolean validarCampos() {
+        if (txt_nombre.getText().isEmpty() || txt_apellido.getText().isEmpty() || txt_cedula.getText().isEmpty() || txt_edad.getText().isEmpty()) {
+            App.showAlert("Campos vacíos", "Por favor, complete todos los campos.", Alert.AlertType.WARNING);
+            return false;
+        }
+        return true;
+    }
+
+    private int validarEdad(String edadTexto) throws IllegalArgumentException {
+        int edad = Integer.parseInt(edadTexto);
+        if (edad < 0 || edad > 120) {
+            throw new IllegalArgumentException("La edad debe estar entre 0 y 120.");
+        }
+        return edad;
+    }
+
     private void limpiarCampos() {
         txt_nombre.clear();
         txt_apellido.clear();
         txt_cedula.clear();
         txt_edad.clear();
     }
+
     private void accionRegresarAlInicio(ActionEvent event) {
-        App.loadScene("menuInicio", 800, 540);
+        try {
+            App.loadScene("menuInicio", 800, 540);
+        } catch (Exception e) {
+            App.showAlert("Error al Cargar Escena", "Ocurrió un error al regresar al menú de inicio: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 }

@@ -11,12 +11,22 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Clase App la central de cualquier programa java en esta misma se utilizan varios metodos correspondientes
+ * a la linea de vida de javaFx como "Start"
+ */
+
 public class App extends Application {
 
     private static Scene scene;
     private static Empresa empresa; // Instancia única de Empresa
-
+    
+    
+    @SuppressWarnings("exports")
     @Override
+    /**
+     * Metodo Start fundamental en JavaFx es quien inicializa todo al darle play a la app
+     */
     public void start(Stage stage) {
         try {
             // Inicializa la Empresa al inicio de la aplicación
@@ -24,7 +34,7 @@ public class App extends Application {
             empresa.crearReservaEjemplo();
 
             // Carga la escena inicial
-            scene = new Scene(loadFXML("menuRegistrarReservas"), 800, 540);
+            scene = new Scene(loadFXML("menuInicio"), 800, 540);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -50,6 +60,7 @@ public class App extends Application {
     }
 
     // Método generalizado para mostrar alertas
+    @SuppressWarnings("exports")
     public static void showAlert(String title, String message, AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

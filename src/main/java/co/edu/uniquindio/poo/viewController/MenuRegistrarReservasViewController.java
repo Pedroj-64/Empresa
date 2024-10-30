@@ -92,24 +92,11 @@ public class MenuRegistrarReservasViewController {
 
     private void accionGuardarReserva(ActionEvent event) {
         try {
-            String placa = txt_placa.getText();
-            if (placa.isEmpty()) {
-                App.showAlert("Error", "La placa no puede estar vacía.", Alert.AlertType.ERROR);
-                return;
-            }
-            int dias;
-            try {
-                dias = Integer.parseInt(txt_dias.getText());
-            } catch (NumberFormatException e) {
-                App.showAlert("Error", "Ingrese un valor numérico válido para los días.", Alert.AlertType.ERROR);
-                return;
-            }
+            validarCampos();
+            int dias = Integer.parseInt(txt_dias.getText());
             Cliente cliente = cmb_Clientes.getSelectionModel().getSelectedItem();
-            if (cliente == null) {
-                App.showAlert("Error", "Seleccione un cliente.", Alert.AlertType.ERROR);
-                return;
-            }
-            Vehiculo vehiculo = registrarReservasController.buscarVehiculoPorPlaca(placa);
+            Vehiculo vehiculo = registrarReservasController.buscarVehiculoPorPlaca(txt_placa.getText());
+
             if (vehiculo != null) {
                 Reserva reserva = new Reserva(dias, cliente, vehiculo);
                 registrarReservasController.guardarReserva(reserva);
@@ -119,9 +106,25 @@ public class MenuRegistrarReservasViewController {
                 App.showAlert("Error", "Vehículo no encontrado.", Alert.AlertType.ERROR);
                 limpiarCampos(); // Limpia los campos si el vehículo no se encuentra
             }
+        } catch (NumberFormatException e) {
+            App.showAlert("Error", "Ingrese un valor numérico válido para los días.", Alert.AlertType.ERROR);
+        } catch (IllegalArgumentException e) {
+            App.showAlert("Error de Validación", e.getMessage(), Alert.AlertType.ERROR);
         } catch (Exception e) {
             App.showAlert("Error inesperado", "Ha ocurrido un error inesperado. Detalle: " + e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace(); // Para más detalles en la consola
+        }
+    }
+
+    private void validarCampos() throws IllegalArgumentException {
+        if (txt_placa.getText().isEmpty()) {
+            throw new IllegalArgumentException("La placa no puede estar vacía.");
+        }
+        if (txt_dias.getText().isEmpty()) {
+            throw new IllegalArgumentException("El campo de días no puede estar vacío.");
+        }
+        if (cmb_Clientes.getSelectionModel().getSelectedItem() == null) {
+            throw new IllegalArgumentException("Debe seleccionar un cliente.");
         }
     }
 

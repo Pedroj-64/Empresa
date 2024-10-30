@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class Empresa {
-
     private String nombre;
     private Collection<Vehiculo> vehiculos;
     private Collection<Vehiculo> vehiculosDisponibles;
@@ -16,6 +15,9 @@ public class Empresa {
 
     // Constructor privado para Singleton
     private Empresa(String nombre) {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la empresa no puede ser nulo o vacío.");
+        }
         this.nombre = nombre;
         this.vehiculos = new LinkedList<>();
         this.vehiculosDisponibles = new LinkedList<>();
@@ -38,6 +40,9 @@ public class Empresa {
     }
 
     public void setNombre(String nombre) {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la empresa no puede ser nulo o vacío.");
+        }
         this.nombre = nombre;
     }
 
@@ -58,6 +63,9 @@ public class Empresa {
     }
 
     public void setClientes(Collection<Cliente> clientes) {
+        if (clientes == null) {
+            throw new IllegalArgumentException("La colección de clientes no puede ser nula.");
+        }
         this.clientes = clientes;
     }
 
@@ -66,6 +74,9 @@ public class Empresa {
     }
 
     public void setListaReservas(Collection<Reserva> listaReservas) {
+        if (listaReservas == null) {
+            throw new IllegalArgumentException("La colección de reservas no puede ser nula.");
+        }
         this.listaReservas = listaReservas;
     }
 
@@ -77,19 +88,15 @@ public class Empresa {
         // Crear un cliente con datos constantes
         Cliente cliente = new Cliente("Juan", "Pérez", "123456789", 30);
         agregarCliente(cliente); // Agregar el cliente a la empresa
-    
+
         // Crear un vehículo (Camioneta) con datos constantes
         Camioneta camioneta = new Camioneta("ABC123", "Toyota", "Hilux", 2020, 100000, 10);
         agregarVehiculo(camioneta); // Agregar la camioneta a la empresa
 
-        Camioneta camioneta4 = new Camioneta("ABC123", "Toyota", "Hilux", 2020, 100000, 10);
-        agregarVehiculo(camioneta4);
-        
         // Crear una reserva con datos constantes
         Reserva reserva = new Reserva(5, cliente, camioneta); // Reserva por 5 días
         this.calcularCostoReserva(reserva);
         agregarReserva(reserva); // Agregar la reserva a la empresa
-        
     }
 
     // Métodos para manejar vehículos
@@ -105,13 +112,13 @@ public class Empresa {
         if (placa == null || placa.isEmpty()) {
             throw new IllegalArgumentException("La placa no puede ser nula o vacía.");
         }
-        
+
         for (Vehiculo vehiculo : vehiculos) {
             if (vehiculo.getMatricula().equals(placa)) {
                 return vehiculo; // Retorna el vehículo encontrado
             }
         }
-        
+
         throw new NoSuchElementException("No se encontró un vehículo con la placa: " + placa);
     }
 
@@ -125,14 +132,13 @@ public class Empresa {
     }
 
     // Métodos para manejar clientes
-    public boolean existeCliente(String cedula){
-        boolean banderilla=false;
-        for(Cliente cliente: clientes){
-            if(cliente.getCedula().equals(cedula)){
-                banderilla=true;
+    public boolean existeCliente(String cedula) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getCedula().equals(cedula)) {
+                return true;
             }
         }
-        return banderilla;
+        return false;
     }
 
     public void agregarCliente(Cliente cliente) throws IllegalArgumentException {
@@ -159,12 +165,13 @@ public class Empresa {
     }
 
     public boolean eliminarReserva(Reserva reserva) {
+        boolean banderilla=true;
         if (reserva == null || !listaReservas.contains(reserva)) {
-            return false;
+            banderilla=false;
         }
         listaReservas.remove(reserva);
         actualizarEstadoVehiculo(reserva.getVehiculo(), false);
-        return true;
+        return banderilla;
     }
 
     public void calcularCostoReserva(Reserva reserva) {

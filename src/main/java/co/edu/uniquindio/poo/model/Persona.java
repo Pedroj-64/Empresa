@@ -4,11 +4,11 @@ public abstract class Persona {
     private String nombre, apellido, cedula;
     private int edad;
 
-    public Persona(String nombre, String apellido, String cedula, int edad){
-        this.nombre=nombre;
-        this.apellido=apellido;
-        this.cedula=cedula;
-        this.edad=edad;
+    public Persona(String nombre, String apellido, String cedula, int edad) {
+        setNombre(nombre);
+        setApellido(apellido);
+        setCedula(cedula);
+        setEdad(edad);
     }
 
     public String getNombre() {
@@ -16,6 +16,9 @@ public abstract class Persona {
     }
 
     public void setNombre(String nombre) {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede ser nulo o vacío.");
+        }
         this.nombre = nombre;
     }
 
@@ -24,6 +27,9 @@ public abstract class Persona {
     }
 
     public void setApellido(String apellido) {
+        if (apellido == null || apellido.isEmpty()) {
+            throw new IllegalArgumentException("El apellido no puede ser nulo o vacío.");
+        }
         this.apellido = apellido;
     }
 
@@ -32,6 +38,9 @@ public abstract class Persona {
     }
 
     public void setCedula(String cedula) {
+        if (cedula == null || cedula.isEmpty()) {
+            throw new IllegalArgumentException("La cédula no puede ser nula o vacía.");
+        }
         this.cedula = cedula;
     }
 
@@ -40,6 +49,9 @@ public abstract class Persona {
     }
 
     public void setEdad(int edad) {
+        if (edad <= 0) {
+            throw new IllegalArgumentException("La edad debe ser mayor que cero.");
+        }
         this.edad = edad;
     }
 
@@ -47,6 +59,4 @@ public abstract class Persona {
     public String toString() {
         return "Persona [nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula + ", edad=" + edad + "]";
     }
-    
-    
 }

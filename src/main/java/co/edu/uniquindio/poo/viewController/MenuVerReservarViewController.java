@@ -7,7 +7,6 @@ import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.controller.MenuVerReservarController;
 import co.edu.uniquindio.poo.model.Cliente;
 import co.edu.uniquindio.poo.model.Reserva;
-import co.edu.uniquindio.poo.model.Vehiculo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.LocalDateStringConverter;
-import java.time.*;
+import java.time.LocalDate;
 
 public class MenuVerReservarViewController {
 
@@ -60,7 +59,7 @@ public class MenuVerReservarViewController {
             configuracionListener();
             configurarAccionesBotones();
         } catch (Exception e) {
-            mostrarAlerta("Error de Inicialización", "Ocurrió un error al inicializar la vista: " + e.getMessage());
+            App.showAlert("Error de Inicialización", "Ocurrió un error al inicializar la vista: " + e.getMessage(), AlertType.ERROR);
         }
     }
 
@@ -68,14 +67,12 @@ public class MenuVerReservarViewController {
         try {
             tbc_cliente.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCliente()));
             tbc_dias.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDias()));
-
             tbc_fechaDeInicio.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFechaDeReserva()));
             tbc_fechaDeInicio.setCellFactory(col -> new TextFieldTableCell<>(new LocalDateStringConverter(DateTimeFormatter.ofPattern("dd/MM/yyyy"), null)));
-
             tbc_tipoDeVehiculo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getVehiculo().getClass().getSimpleName()));
             tbc_totalCosto.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCostoTotal()));
         } catch (Exception e) {
-            mostrarAlerta("Error de Configuración", "Error al configurar las columnas de la tabla: " + e.getMessage());
+            App.showAlert("Error de Configuración", "Error al configurar las columnas de la tabla: " + e.getMessage(), AlertType.ERROR);
         }
     }
 
@@ -84,7 +81,7 @@ public class MenuVerReservarViewController {
             listaReservas.setAll(reservaController.obtenerReservas());
             tbl_verReservas.setItems(listaReservas);
         } catch (Exception e) {
-            mostrarAlerta("Error de Carga", "No se pudieron cargar las reservas: " + e.getMessage());
+            App.showAlert("Error de Carga", "No se pudieron cargar las reservas: " + e.getMessage(), AlertType.ERROR);
         }
     }
 
@@ -92,7 +89,7 @@ public class MenuVerReservarViewController {
         try {
             btn_eliminarSeleccion.setOnAction(this::eliminarReservaSeleccionada);
         } catch (Exception e) {
-            mostrarAlerta("Error de Configuración", "No se pudo configurar la acción del botón: " + e.getMessage());
+            App.showAlert("Error de Configuración", "No se pudo configurar la acción del botón: " + e.getMessage(), AlertType.ERROR);
         }
         btn_regresarAlInicio.setOnAction(this::accionRegresarAlInicio);
     }
@@ -103,7 +100,7 @@ public class MenuVerReservarViewController {
                 btn_eliminarSeleccion.setDisable(newSelection == null);
             });
         } catch (Exception e) {
-            mostrarAlerta("Error de Listener", "Error al configurar el listener de selección: " + e.getMessage());
+            App.showAlert("Error de Listener", "Error al configurar el listener de selección: " + e.getMessage(), AlertType.ERROR);
         }
     }
 
@@ -118,27 +115,25 @@ public class MenuVerReservarViewController {
 
                 if (respuesta.isPresent() && respuesta.get() == ButtonType.OK) {
                     if (reservaController.eliminarReserva(reservaSeleccionada)) {
-                        mostrarAlerta("Éxito", "Reserva eliminada correctamente.");
+                        App.showAlert("Éxito", "Reserva eliminada correctamente.", AlertType.INFORMATION);
                         cargarReservas();
                     } else {
-                        mostrarAlerta("Error", "No se pudo eliminar la reserva.");
+                        App.showAlert("Error", "No se pudo eliminar la reserva.", AlertType.ERROR);
                     }
                 }
             } else {
-                mostrarAlerta("Sin selección", "Seleccione una reserva para eliminar.");
+                App.showAlert("Sin selección", "Seleccione una reserva para eliminar.", AlertType.WARNING);
             }
         } catch (Exception e) {
-            mostrarAlerta("Error de Eliminación", "Ocurrió un error al intentar eliminar la reserva: " + e.getMessage());
+            App.showAlert("Error de Eliminación", "Ocurrió un error al intentar eliminar la reserva: " + e.getMessage(), AlertType.ERROR);
         }
     }
 
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alerta = new Alert(AlertType.INFORMATION);
-        alerta.setTitle(titulo);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
-    }
-        private void accionRegresarAlInicio(ActionEvent event) {
-        App.loadScene("menuInicio", 800, 540);
+    private void accionRegresarAlInicio(ActionEvent event) {
+        try {
+            App.loadScene("menuInicio", 800, 540);
+        } catch (Exception e) {
+            App.showAlert("Error al Cambiar de Vista", "No se pudo regresar al menú de inicio: " + e.getMessage(), AlertType.ERROR);
+        }
     }
 }

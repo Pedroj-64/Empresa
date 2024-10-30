@@ -5,13 +5,18 @@ import co.edu.uniquindio.poo.model.Empresa;
 
 public class MenuInicioController {
 
-    public void instancia(){
-        Empresa empresa=App.getEmpresa();
-        empresa.crearReservaEjemplo();
+    Empresa empresa;
+    public void instancia() {
+        try {
+            empresa = App.getEmpresa();
+            if (empresa == null) {
+                throw new IllegalStateException("La empresa no pudo ser inicializada.");
+            }
+            // Aunque no se use 'empresa', manejamos la posible excepción.
+        } catch (IllegalStateException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error inesperado: " + e.getMessage());
+        }
     }
-    
-
-
-    
 }
-

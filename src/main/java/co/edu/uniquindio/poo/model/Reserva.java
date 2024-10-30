@@ -11,10 +11,10 @@ public class Reserva {
     private Vehiculo vehiculo;
     private Cliente cliente;
 
-    public Reserva(int dias, Cliente cliente,Vehiculo vehiculo) {
-        this.dias = dias;
-        this.cliente = cliente;
-        this.vehiculo=vehiculo;
+    public Reserva(int dias, Cliente cliente, Vehiculo vehiculo) {
+        setDias(dias);
+        setCliente(cliente);
+        setVehiculo(vehiculo);
     }
 
     public double getCostoTotal() {
@@ -22,6 +22,9 @@ public class Reserva {
     }
 
     public void setCostoTotal(double costoTotal) {
+        if (costoTotal < 0) {
+            throw new IllegalArgumentException("El costo total no puede ser negativo.");
+        }
         this.costoTotal = costoTotal;
     }
 
@@ -30,6 +33,9 @@ public class Reserva {
     }
 
     public void setFechaDeReserva(LocalDate fechaDeReserva) {
+        if (fechaDeReserva == null) {
+            throw new IllegalArgumentException("La fecha de reserva no puede ser nula.");
+        }
         this.fechaDeReserva = fechaDeReserva;
     }
 
@@ -38,6 +44,9 @@ public class Reserva {
     }
 
     public void setHora(LocalTime hora) {
+        if (hora == null) {
+            throw new IllegalArgumentException("La hora no puede ser nula.");
+        }
         this.hora = hora;
     }
 
@@ -46,6 +55,9 @@ public class Reserva {
     }
 
     public void setDias(int dias) {
+        if (dias <= 0) {
+            throw new IllegalArgumentException("El número de días debe ser mayor que cero.");
+        }
         this.dias = dias;
     }
 
@@ -54,6 +66,9 @@ public class Reserva {
     }
 
     public void setCliente(Cliente cliente) {
+        if (cliente == null) {
+            throw new IllegalArgumentException("El cliente no puede ser nulo.");
+        }
         this.cliente = cliente;
     }
 
@@ -62,13 +77,14 @@ public class Reserva {
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
+        if (vehiculo == null) {
+            throw new IllegalArgumentException("El vehículo no puede ser nulo.");
+        }
         this.vehiculo = vehiculo;
     }
 
     @Override
     public String toString() {
-        return "Reserva [costoTotal=" + costoTotal + ", fechaDeReserva=" + fechaDeReserva + ", hora=" + hora + ", dias="
-                + dias + ", cliente=" + cliente + "]";
+        return "Reserva [costoTotal=" + costoTotal + ", fechaDeReserva=" + fechaDeReserva + ", hora=" + hora + ", dias=" + dias + ", cliente=" + cliente + "]";
     }
-
 }

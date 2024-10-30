@@ -29,8 +29,12 @@ public class MenuRegistroVehicularViewController {
 
     @FXML
     void initialize() {
-        configuracionCombo();
-        configureButtons();
+        try {
+            configuracionCombo();
+            configureButtons();
+        } catch (Exception e) {
+            App.showAlert("Error de Inicialización", "Error al inicializar la vista: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     private void configuracionCombo() {
@@ -40,9 +44,13 @@ public class MenuRegistroVehicularViewController {
     }
 
     private void habilitarCamposEspecificos(String tipoVehiculo) {
-        checkEsCajaAutomatica.setDisable(!"Moto".equals(tipoVehiculo));
-        txt_NumeroDePuertas.setDisable(!"Auto".equals(tipoVehiculo));
-        txt_CapacidadDeCarga.setDisable(!"Camioneta".equals(tipoVehiculo));
+        try {
+            checkEsCajaAutomatica.setDisable(!"Moto".equals(tipoVehiculo));
+            txt_NumeroDePuertas.setDisable(!"Auto".equals(tipoVehiculo));
+            txt_CapacidadDeCarga.setDisable(!"Camioneta".equals(tipoVehiculo));
+        } catch (Exception e) {
+            App.showAlert("Error al Configurar Campos", "Error al habilitar campos específicos para el tipo de vehículo: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     private void configureButtons() {
@@ -71,7 +79,7 @@ public class MenuRegistroVehicularViewController {
 
             mostrarResultadoRegistro(registroExitoso);
         } catch (Exception e) {
-            App.showAlert("Error de Registro", "Error inesperado al registrar el vehículo. " + e.getMessage(), Alert.AlertType.ERROR);
+            App.showAlert("Error de Registro", "Error inesperado al registrar el vehículo: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -88,19 +96,23 @@ public class MenuRegistroVehicularViewController {
         try {
             App.loadScene("menuInicio", 800, 540);
         } catch (Exception e) {
-            App.showAlert("Error al Cargar Escena", "Ocurrió un error al regresar al menú de inicio.", Alert.AlertType.ERROR);
+            App.showAlert("Error al Cargar Escena", "Ocurrió un error al regresar al menú de inicio: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
     private boolean validarCampos() {
-        if (esCampoVacio(txt_Matricula) || esCampoVacio(txt_Marca) || esCampoVacio(txt_Modelo) ||
-            fechaAñoVehiculo.getValue() == null || esCampoVacio(txt_TarifaBase) ||
-            (cmb_TiposDeVehiculo.getValue() == null || cmb_TiposDeVehiculo.getValue().isEmpty())) {
-            App.showAlert("Campos Vacíos", "Por favor, llene todos los campos obligatorios.", Alert.AlertType.WARNING);
+        try {
+            if (esCampoVacio(txt_Matricula) || esCampoVacio(txt_Marca) || esCampoVacio(txt_Modelo) ||
+                fechaAñoVehiculo.getValue() == null || esCampoVacio(txt_TarifaBase) ||
+                (cmb_TiposDeVehiculo.getValue() == null || cmb_TiposDeVehiculo.getValue().isEmpty())) {
+                App.showAlert("Campos Vacíos", "Por favor, llene todos los campos obligatorios.", Alert.AlertType.WARNING);
+                return false;
+            }
+            return validarCamposNumericos();
+        } catch (Exception e) {
+            App.showAlert("Error de Validación", "Error al validar campos: " + e.getMessage(), Alert.AlertType.ERROR);
             return false;
         }
-        
-        return validarCamposNumericos();
     }
 
     private boolean validarCamposNumericos() {
@@ -120,14 +132,16 @@ public class MenuRegistroVehicularViewController {
     }
 
     private Integer obtenerValorCampo(TextField campo) {
-        int valor=0;
-        if (campo.isDisabled() || campo.getText().isEmpty()) {
-            valor= 0;
+        try {
+            if (campo.isDisabled() || campo.getText().isEmpty()) {
+                return 0;
+            } else {
+                return Integer.parseInt(campo.getText());
+            }
+        } catch (NumberFormatException e) {
+            App.showAlert("Error de Formato", "Error al obtener valor del campo: " + e.getMessage(), Alert.AlertType.WARNING);
+            return 0;
         }
-        else{
-            valor=Integer.parseInt(campo.getText());
-        }
-        return valor;
     }
 
     private boolean esCampoVacio(TextField campo) {
