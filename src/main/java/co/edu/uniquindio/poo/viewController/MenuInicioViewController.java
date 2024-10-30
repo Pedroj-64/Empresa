@@ -37,7 +37,6 @@ public class MenuInicioViewController {
 
     @FXML
     void initialize() {
-
         configurarBotones();
         
     }

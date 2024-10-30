@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.controller;
 
+import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.model.Auto;
 import co.edu.uniquindio.poo.model.Camioneta;
 import co.edu.uniquindio.poo.model.Empresa;
@@ -9,15 +10,9 @@ import co.edu.uniquindio.poo.model.Vehiculo;
 
 
 public class MenuRegistroVehicularController {
-    Empresa empresa;
 
-    public void instancia() {
-        empresa = Empresa.getInstance("mi empresa");
-        if (!empresa.tieneVehiculos()) {
-            agregarVehiculosEjemplo();
-        }
-    }
-    
+    Empresa empresa=App.getEmpresa();
+
     public boolean registrarVehiculo(String matricula, String marca, String modelo, int año, boolean esAutomatica,
                                      String tipoVehiculo, double tarifaBase, Integer numeroDePuertas, int capacidadDeCarga) {
         Vehiculo vehiculo;
@@ -49,10 +44,5 @@ public class MenuRegistroVehicularController {
         empresa.agregarVehiculo(vehiculo);
     }
 
-    public void agregarVehiculosEjemplo() {
-        // Ejemplo de vehículos
-        registrarVehiculo("ABC123", "Toyota", "Corolla", 2020, true, "Auto", 10000, 4, 0);
-        registrarVehiculo("XYZ789", "Yamaha", "YZF-R3", 2019, false, "Moto", 5000, null, 0);
-        registrarVehiculo("LMN456", "Ford", "F-150", 2021, false, "Camioneta", 15000, null, 1000);
-    }
+
 }

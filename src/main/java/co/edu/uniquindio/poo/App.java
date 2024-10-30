@@ -21,9 +21,10 @@ public class App extends Application {
         try {
             // Inicializa la Empresa al inicio de la aplicación
             empresa = Empresa.getInstance("mi empresa");
+            empresa.crearReservaEjemplo();
 
             // Carga la escena inicial
-            scene = new Scene(loadFXML("menuInicio"), 800, 540);
+            scene = new Scene(loadFXML("menuRegistroVehicular"), 800, 540);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

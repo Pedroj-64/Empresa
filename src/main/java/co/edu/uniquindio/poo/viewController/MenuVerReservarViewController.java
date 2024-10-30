@@ -7,6 +7,7 @@ import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.controller.MenuVerReservarController;
 import co.edu.uniquindio.poo.model.Cliente;
 import co.edu.uniquindio.poo.model.Reserva;
+import co.edu.uniquindio.poo.model.Vehiculo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -71,7 +72,7 @@ public class MenuVerReservarViewController {
             tbc_fechaDeInicio.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFechaDeReserva()));
             tbc_fechaDeInicio.setCellFactory(col -> new TextFieldTableCell<>(new LocalDateStringConverter(DateTimeFormatter.ofPattern("dd/MM/yyyy"), null)));
 
-            tbc_tipoDeVehiculo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClass().getSimpleName()));
+            tbc_tipoDeVehiculo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getVehiculo().getClass().getSimpleName()));
             tbc_totalCosto.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCostoTotal()));
         } catch (Exception e) {
             mostrarAlerta("Error de Configuración", "Error al configurar las columnas de la tabla: " + e.getMessage());

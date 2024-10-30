@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.controller;
 
+import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.model.Empresa;
 import co.edu.uniquindio.poo.model.Reserva;
 import javafx.collections.FXCollections;
@@ -16,7 +17,7 @@ public class MenuVerReservarController {
     Empresa empresa;
 
     public  void instancia(){
-        Empresa.getInstance("Mi empresa");
+        empresa=App.getEmpresa();
     }
 
 

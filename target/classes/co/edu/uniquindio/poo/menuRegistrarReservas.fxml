@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -32,20 +31,20 @@
             <Font name="Serif Regular" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_dias2" layoutX="51.0" layoutY="122.0" promptText="En entero" />
+      <TextField fx:id="txt_dias" layoutX="51.0" layoutY="122.0" promptText="En entero" />
       <Label fx:id="lbl_Vehiculo" layoutX="337.0" layoutY="97.0" prefHeight="17.0" prefWidth="193.0" text="Vehiculo:">
          <font>
             <Font name="Serif Regular" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_tipoVehiculo" editable="false" layoutX="337.0" layoutY="122.0" promptText="Tipo de vehiculo" />
-      <TextField fx:id="txt_matricual" editable="false" layoutX="337.0" layoutY="176.0" promptText="Placa" />
+      <TextField fx:id="txt_tipoDeVehiculo" editable="false" layoutX="337.0" layoutY="122.0" promptText="Tipo de vehiculo" />
+      <TextField fx:id="txt_placa" editable="false" layoutX="337.0" layoutY="176.0" promptText="Placa" />
       <Label fx:id="lbl_Cliente" layoutX="51.0" layoutY="158.0" prefHeight="17.0" prefWidth="193.0" text="Cliente:">
          <font>
             <Font name="Serif Regular" size="15.0" />
          </font>
       </Label>
-      <ComboBox fx:id="Combox_Clientes" layoutX="51.0" layoutY="176.0" prefWidth="150.0" promptText="Cliente (existente)" />
+      <ComboBox fx:id="cmb_Clientes" layoutX="51.0" layoutY="176.0" prefWidth="150.0" promptText="Cliente (existente)" />
       <Button fx:id="btn_regresarAlInicio" layoutX="462.0" layoutY="29.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Regresar" />
    </children>
 </AnchorPane>
