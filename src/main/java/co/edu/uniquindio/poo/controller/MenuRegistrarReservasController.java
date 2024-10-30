@@ -7,10 +7,16 @@ import co.edu.uniquindio.poo.model.Reserva;
 import co.edu.uniquindio.poo.model.Vehiculo;
 import java.util.Collection;
 import java.util.NoSuchElementException;
-
+/**
+ * Clase controller de MenuRegistrarReservas el cual maneja la logica de negocio de interfaz del mismo nombre
+ */
 public class MenuRegistrarReservasController {
-    Empresa empresa = App.getEmpresa();
 
+    Empresa empresa = App.getEmpresa();
+    /**
+     * metodo utilizado para obtener la listaDeVehiculosDisponibles para poderla volverla una listaOber
+     * @return
+     */
     public Collection<Vehiculo> obtenerListaVehiculosDisponibles() {
         if (empresa == null) {
             throw new IllegalStateException("La empresa no está inicializada.");

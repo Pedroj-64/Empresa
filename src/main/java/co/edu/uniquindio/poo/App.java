@@ -29,8 +29,9 @@ public class App extends Application {
      */
     public void start(Stage stage) {
         try {
-            // Inicializa la Empresa al inicio de la aplicación
+            // Inicializa la Empresa al inicio de la aplicación por patron Singleton
             empresa = Empresa.getInstance("mi empresa");
+            // Se crean Reservas y vehiculos de prueba
             empresa.crearReservaEjemplo();
 
             // Carga la escena inicial
@@ -42,7 +43,12 @@ public class App extends Application {
         }
     }
 
-    // Método para cambiar la raíz de la escena
+    /**
+     * Metodo que cambia la raiz de la escena a partir de cargar el fxml  correspondiente
+     * @param fxml
+     * @param width
+     * @param height
+     */
     public static void loadScene(String fxml, double width, double height) {
         try {
             scene.setRoot(loadFXML(fxml));
@@ -53,14 +59,26 @@ public class App extends Application {
         }
     }
 
-    // Método para cargar FXML
+    /**
+     * Metodo auziliar el ayuda a loadScene cargar el archivo fxml
+     * @param fxml
+     * @return
+     * @throws IOException
+     */
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
-    // Método generalizado para mostrar alertas
+    
     @SuppressWarnings("exports")
+    /**
+     * Metodo generalizado para  mostrar alertas con Alert de JavaFx
+
+     * @param title
+     * @param message
+     * @param type
+     */
     public static void showAlert(String title, String message, AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -69,13 +87,21 @@ public class App extends Application {
         alert.showAndWait();
     }
 
-    // Acceso a la instancia de Empresa desde cualquier parte de la aplicación
+    /**
+     * Acceso a la instancia de Empresa desde cualquier parte de la aplicación debido al patron 
+     * de diseño  Singleton
+
+     * @return
+     */
     public static Empresa getEmpresa() {
         return empresa;
     }
 
 
-
+    /**
+     * Metodo main de la aplicación
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }

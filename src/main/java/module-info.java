@@ -1,3 +1,7 @@
+/**
+ * Clase module el cual ayuda a que javafx y sus librerias puedan saber donde se tienen
+ * las interfaces y viewController
+ */
 module co.edu.uniquindio.poo {
     requires javafx.controls;
     requires javafx.fxml;
