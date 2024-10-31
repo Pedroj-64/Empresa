@@ -1,7 +1,6 @@
 package co.edu.uniquindio.poo;
 
 import java.io.IOException;
-
 import co.edu.uniquindio.poo.model.Empresa;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,97 +11,89 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- * Clase App la central de cualquier programa java en esta misma se utilizan varios metodos correspondientes
- * a la linea de vida de javaFx como "Start"
+ * Clase App es la central de cualquier programa JavaFX. En esta se utilizan varios métodos correspondientes
+ * a la línea de vida de JavaFX como "start".
  */
-
 public class App extends Application {
-
-    private static Scene scene;
+    private static Scene scene; // Escena principal de la aplicación
     private static Empresa empresa; // Instancia única de Empresa
-    
     
     @SuppressWarnings("exports")
     @Override
     /**
-     * Metodo Start fundamental en JavaFx es quien inicializa todo al darle play a la app
+     * Método start, fundamental en JavaFX, que inicializa todo al dar play a la aplicación.
      */
     public void start(Stage stage) {
         try {
-            // Inicializa la Empresa al inicio de la aplicación por patron Singleton
+            // Inicializa la Empresa al inicio de la aplicación por el patrón Singleton
             empresa = Empresa.getInstance("mi empresa");
-            // Se crean Reservas y vehiculos de prueba
+            // Se crean reservas y vehículos de prueba
             empresa.crearReservaEjemplo();
-
             // Carga la escena inicial
             scene = new Scene(loadFXML("menuInicio"), 800, 540);
-            stage.setScene(scene);
-            stage.show();
+            stage.setScene(scene); // Establece la escena en el escenario
+            stage.show(); // Muestra la escena
         } catch (IOException e) {
             showAlert("Error al cargar la interfaz", "No se pudo cargar el archivo FXML: " + e.getMessage(), AlertType.ERROR);
         }
     }
 
     /**
-     * Metodo que cambia la raiz de la escena a partir de cargar el fxml  correspondiente
-     * @param fxml
-     * @param width
-     * @param height
+     * Método que cambia la raíz de la escena a partir de cargar el archivo FXML correspondiente.
+     * @param fxml Nombre del archivo FXML.
+     * @param width Ancho de la ventana.
+     * @param height Alto de la ventana.
      */
     public static void loadScene(String fxml, double width, double height) {
         try {
-            scene.setRoot(loadFXML(fxml));
-            scene.getWindow().setWidth(width);
-            scene.getWindow().setHeight(height);
+            scene.setRoot(loadFXML(fxml)); // Establece el nuevo contenido de la escena
+            scene.getWindow().setWidth(width); // Ajusta el ancho de la ventana
+            scene.getWindow().setHeight(height); // Ajusta el alto de la ventana
         } catch (IOException e) {
             showAlert("Error al cambiar la vista", "No se pudo cargar el archivo FXML: " + e.getMessage(), AlertType.ERROR);
         }
     }
 
     /**
-     * Metodo auziliar el ayuda a loadScene cargar el archivo fxml
-     * @param fxml
-     * @return
-     * @throws IOException
+     * Método auxiliar que ayuda a loadScene a cargar el archivo FXML.
+     * @param fxml Nombre del archivo FXML.
+     * @return El elemento raíz del archivo FXML cargado.
+     * @throws IOException Si ocurre un error al cargar el archivo FXML.
      */
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        return fxmlLoader.load(); // Carga el archivo FXML y retorna el elemento raíz
     }
 
-    
     @SuppressWarnings("exports")
     /**
-     * Metodo generalizado para  mostrar alertas con Alert de JavaFx
-
-     * @param title
-     * @param message
-     * @param type
+     * Método generalizado para mostrar alertas con Alert de JavaFX.
+     * @param title Título de la alerta.
+     * @param message Mensaje de la alerta.
+     * @param type Tipo de alerta.
      */
     public static void showAlert(String title, String message, AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        Alert alert = new Alert(type); // Crea una nueva alerta del tipo especificado
+        alert.setTitle(title); // Establece el título de la alerta
+        alert.setHeaderText(null); // Establece que no hay texto de cabecera
+        alert.setContentText(message); // Establece el mensaje de la alerta
+        alert.showAndWait(); // Muestra la alerta y espera a que el usuario la cierre
     }
 
     /**
-     * Acceso a la instancia de Empresa desde cualquier parte de la aplicación debido al patron 
-     * de diseño  Singleton
-
-     * @return
+     * Acceso a la instancia de Empresa desde cualquier parte de la aplicación debido al patrón
+     * de diseño Singleton.
+     * @return La instancia única de Empresa.
      */
     public static Empresa getEmpresa() {
-        return empresa;
+        return empresa; // Retorna la instancia de Empresa
     }
 
-
     /**
-     * Metodo main de la aplicación
-     * @param args
+     * Método main de la aplicación.
+     * @param args Argumentos de la línea de comandos.
      */
     public static void main(String[] args) {
-        launch();
+        launch(); // Lanza la aplicación JavaFX
     }
 }

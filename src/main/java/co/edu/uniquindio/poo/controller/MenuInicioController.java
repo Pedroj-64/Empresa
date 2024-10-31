@@ -2,12 +2,14 @@ package co.edu.uniquindio.poo.controller;
 
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.model.Empresa;
+
 /**
- * Clase Controller de la interfaz MenuInicio encargada tener logica  de negocio de la interfaz
+ * Clase Controller de la interfaz MenuInicio encargada tener logica de negocio
+ * de la interfaz
  */
 public class MenuInicioController {
 
-    //Se instancia empresa para  poder acceder a sus metodos
+    // Se instancia empresa para poder acceder a sus metodos
 
     Empresa empresa;
 

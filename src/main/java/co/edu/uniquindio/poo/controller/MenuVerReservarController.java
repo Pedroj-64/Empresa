@@ -15,6 +15,9 @@ import javafx.collections.ObservableList;
 public class MenuVerReservarController {
     Empresa empresa;
 
+    /**
+     * Metodo istancia para uso de la instancia empresa
+     */
     public void instancia() {
         empresa = App.getEmpresa();
         if (empresa == null) {
@@ -61,6 +64,7 @@ public class MenuVerReservarController {
      * @return true si la reserva fue eliminada, false de lo contrario.
      */
     public boolean eliminarReserva(Reserva reserva) {
+        boolean banderilla = false;
         if (empresa == null) {
             throw new IllegalStateException("La empresa no está inicializada.");
         }
@@ -68,9 +72,12 @@ public class MenuVerReservarController {
             throw new IllegalArgumentException("La reserva no puede ser nula.");
         }
         try {
-            return empresa.eliminarReserva(reserva);
+            // Esto se vale de que el metodo en empresa de eliminarReserva devuelve
+            // un boolean dando true si la eliminacion fue correcta
+            banderilla = empresa.eliminarReserva(reserva);
         } catch (Exception e) {
             throw new RuntimeException("Error al eliminar la reserva: " + e.getMessage(), e);
         }
+        return banderilla;
     }
 }
