@@ -106,6 +106,9 @@ public class MenuRegistroDeClientesViewController {
      * Valida que todos los campos de entrada estén completos.
      * 
      * @return true si todos los campos están completos, false de lo contrario
+     * 
+     * DATO A TENER EN CUENTA: si bien por practicas utilizar return directamente devolviend valores booleanos esta bien nuevamente 
+     * se hace con el proposito de ejemplificar que es posible mas no recomendable
      */
     private boolean validarCampos() {
         if (txt_nombre.getText().isEmpty() || txt_apellido.getText().isEmpty() || txt_cedula.getText().isEmpty()
