@@ -115,6 +115,10 @@ public class MenuRegistrarReservasViewController {
     /**
      * Carga los datos iniciales de los vehículos y clientes, y configura el
      * listener de la tabla.
+     * 
+     * 
+     * DATO A TENER EN CUENTA: en la parte de abajo se definen objetos con conexion directa con App llamando empresa si bien
+     * por practicas esto esta mal, se quiso hacer asi para ejemplificar a futuro que es posible utilizar como controller un viewController
      */
     private void cargarDatos() {
         cargarVehiculos(); // Carga la lista de vehículos disponibles
